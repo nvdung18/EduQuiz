@@ -1,0 +1,24 @@
+
+
+.main-topic{
+    max-width: 67.5rem;
+    min-height: 32rem;
+    margin: auto auto 2.5rem;
+    padding: 0 1rem;
+    .main-topic__top{
+        background-color: white !important;
+        .top__title-topic{
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .top__topic-details{
+            .top__topic-details--pointer{
+                cursor: pointer;
+            }
+        }
+    }
+    
+    .main-topic__bottom{
+        margin-top: 15px;
+    }
+}

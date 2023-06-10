@@ -1,0 +1,97 @@
+.body-allCourse {
+    background-color: rgb(246, 247, 251);
+    font-family: hurme_no2-webfont, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: rgb(46, 56, 86);
+}
+
+.container-allCourse {
+    max-width: 1240px !important;
+    width: 100%;
+
+    .setPageHeader-allCourse {
+        .setPageHeader-createdBy {
+            .createdBy-nickName {
+                font-size: 25px;
+                font-weight: 700;
+            }
+
+            .createddBy-author {
+                font-weight: 600;
+                color: rgb(147, 155, 180);
+            }
+        }
+    }
+
+    .DashboardAllCourse-main {
+        margin-top: 20px;
+
+        .DashboardAllCourse-option {
+            .dropdown-allCourse-arrangeByTime {
+                .btn-arrangeByTime {
+                    border: 1px solid rgb(217, 221, 232);
+                    background-color: white;
+                }
+            }
+
+            .search-course {
+                width: 50%;
+            }
+        }
+
+        .DashboardAllCourse-activityFeed {
+            .activityFeed-header {
+                .DashboardFeedGroup-separator {
+                    padding-left: 0.75rem;
+                    vertical-align: top;
+                    width: 100%;
+
+                    .UIHorizontalRule {
+                        border-color: var(#d9dde8);
+                        width: 100%;
+                    }
+                }
+            }
+
+            .activityFeed-allCoruse {
+                .activityFeed-course {
+                    margin-bottom: 10px;
+                    background-color: white;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                    padding: 10px;
+                    border: 1px solid white;
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    .activityFeed-course__info {
+                        display: flex;
+
+                        .activityFeed__info-numsOfTerms {
+                            border-right: 0.125rem solid #cccccc;
+                            flex-grow: 0.01;
+                            margin-right: 10px;
+                            font-weight: 550;
+                        }
+
+                        .activityFeed__info-createdBy{
+                            .info__createdBy-author{
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                    .activityFeed-course__nameCourse{
+                        margin-top: 5px;
+                        a{
+                            font-size: 20px;
+                            font-weight: bold;
+
+                            &:hover{
+                                color:#ff983a;;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,62 @@
+.body-allDirectory{
+    background-color: rgb(246, 247, 251);
+    font-family: hurme_no2-webfont, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: rgb(46, 56, 86);
+}
+
+.DashboardAllDir-activityFeed {
+    .activityFeed-header {
+        .DashboardFeedGroup-separator {
+            padding-left: 0.75rem;
+            vertical-align: top;
+            width: 100%;
+
+            .UIHorizontalRule {
+                border-color: var(#d9dde8);
+                width: 100%;
+            }
+        }
+    }
+
+    .activityFeed-allDir {
+        .activityFeed-dir {
+            margin-bottom: 10px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border: 1px solid white;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+
+            &:hover{
+                border-bottom: 0.3rem solid #dbdfff;
+                transition: all .12s cubic-bezier(.47,0,.745,.715);
+            }
+            .activityFeed-dir__info {
+                display: flex;
+
+                .activityFeed__info-numsOfTerms {
+                    border-right: 0.125rem solid #cccccc;
+                    flex-grow: 0.01;
+                    margin-right: 10px;
+                    font-weight: 550;
+                }
+
+                .activityFeed__info-createdBy{
+                    .info__createdBy-author{
+                        font-weight: 600;
+                    }
+                }
+            }
+            .activityFeed-dir__nameDir{
+                margin-top: 5px;
+                a{
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

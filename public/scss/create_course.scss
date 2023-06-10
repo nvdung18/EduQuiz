@@ -1,0 +1,211 @@
+.body-createCourse {
+    // font-family: Arial, Helvetica;
+    background-color: rgb(246, 247, 251);
+    font-family: hurme_no2-webfont, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: rgb(46, 56, 86);
+}
+
+.AutoExpandTextarea-textarea {
+    border: none !important;
+    background-color: rgb(246, 247, 251) !important;
+    border-bottom: 0.2rem solid black !important;
+    border-radius: 0px !important;
+    flex-grow: 0.7;
+    padding: 0 !important;
+    transition: none !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+
+    &:focus {
+        border-bottom: 0.2rem solid #ffcd1f !important;
+        transition: .3s !important;
+    }
+
+    &::placeholder {
+        color: rgb(194, 195, 197) !important;
+        font-family: hurme_no2-webfont, -apple-system, BlinkMacSystemFont, sans-serif !important;
+        font-weight: 500 !important;
+    }
+}
+
+.lable-bottom-AutoExpandTextarea {
+    color: #939bb4 !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+.container-CreateCourse {
+    margin-top: 20px;
+    max-width: 1240px !important;
+
+    .CreateSetHeader {
+        display: flex;
+        flex-direction: column;
+
+        .CreateSetHeader-heading {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            .CreateSetHeader-headingText{
+                font-weight: 750;
+            }
+            .CreateSetHeader-btn-createCourse {
+                padding-top: 7px;
+                padding-bottom: 7px;
+                width: fit-content;
+                height: fit-content;
+                font-weight: 600;
+            }
+
+            .CreateSetHeader-permissions {
+                font-size: 15px;
+                margin-right: 5px;
+                color: #586380;
+                border: 1px solid #d2c8c8;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: white;
+
+                &:hover {
+                    transition: 0.2s;
+                    background-color: #e0e2e9;
+                }
+            }
+        }
+
+        .CreateSetHeader-TitleCourse {
+
+
+            .CreateSetHeader-title {
+                width: 50%;
+            }
+
+            .CreateSetHeader-description {
+                width: 50%;
+            }
+        }
+
+    }
+
+    .CreateSetPage-content {
+        .CreateSetPage-termRowWrap {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+
+            .TermContent-AddRow{
+                display: flex;
+                justify-content: center;
+                margin-top: 15px;
+                margin-bottom: 15px;
+
+                .TermContent-addRowButton{
+                    border: none;
+                    background-color: white;
+                    border-bottom: 0.3rem solid #3ccfcf;
+                    font-size: 18px;
+                    font-weight: 700;
+                    padding: 0px;
+                    padding-bottom: 2px;
+                    outline: none;
+                    &:hover{
+                        color: #ffcd1f;
+                        transition: .3s !important;
+                        border-bottom: 0.3rem solid #ffcd1f;
+                    }
+                }
+            }
+            
+            .TermToolbar-counter {
+                color: rgb(147, 155, 180);
+                font-weight: 600;
+                cursor: move;
+            }
+
+            .TermToolbar {
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 0.13rem solid rgb(246, 247, 251) !important;
+                padding-bottom: 10px;
+
+                .TermToolbar-option {
+                    display: flex;
+
+                    .TermToolbar-option__dragToggle {
+                        cursor: move;
+
+                        &:hover {
+                            color: #ffcd1f;
+                            transition: .3s !important;
+                        }
+                    }
+
+                    .TermToolbar-option__delete {
+                        &:hover {
+                            color: #ffcd1f;
+                            transition: .3s !important;
+                        }
+                    }
+                }
+            }
+
+            .TermContent-inner {
+                display: flex;
+                justify-content: space-between;
+                .AutoExpandTextarea-textarea {
+                    background-color: white !important;
+                }
+                .TermContent-inner-word{
+                    width: 46%;
+                }
+                .TermContent-inner-definition{
+                    width: 50%;
+                    .DefinitionSide{
+                        display: flex;
+                        justify-content: space-between;
+
+                        .DefinitionSide-text{
+                            width: 77%;
+                        }
+
+                        .DefinitionSide-image{
+                            height: fit-content;
+                            border-radius: 5px;
+                            border: 3px dashed #d9dde8;
+                            padding: 5px 15px 5px 15px;
+                            .ImageUploadComponent{
+                                .imgUploadIcon{
+                                    height: fit-content;
+                                    text-align: center;
+                                    &:hover{
+                                        color: #ffcd1f;
+                                    }
+                                }
+                                .imgUploadContext{
+                                    font-size: 10px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .CreateSetPage-footer{
+            display: flex;
+            justify-content: end;
+            margin-bottom: 20px;
+            .btn-footer-CreateCourse{
+                padding: 20px 30px 20px 30px;
+                border-radius: 10px;
+                color: white;
+                font-weight: 600;
+                background-color: #4255ff;
+            }
+        }
+    }
+}
