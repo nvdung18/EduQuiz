@@ -5,9 +5,7 @@ var validator = require("../middleware/validator")
 
 
 router.route('/')
-  .get((req, res) => {
-    res.render('register');
-  })
+  .get(registerController.loadRegisterPage)
   .post(validator.validateEmailExists,registerController.newUser)
   // .post((req, res, next) => {
   //   console.log(req.body.registerEmail);

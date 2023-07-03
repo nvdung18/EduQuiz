@@ -6,7 +6,7 @@ const createUser = async (user) => {
   return true;
 };
 
-const checkEmailExists = async (email) => {
+const isCheckEmail = async (email) => {
   let checkExists = await UserModel.findOne({ email: email });
   return checkExists;
 };
@@ -18,8 +18,14 @@ const checkUserExists = async (data) => {
   });
   return user;
 };
+
+const getUserByID=async (userID)=>{
+  let user=await UserModel.findById(userID)
+  return user
+}
 module.exports = {
   createUser,
-  checkEmailExists,
+  isCheckEmail,
   checkUserExists,
+  getUserByID,
 };

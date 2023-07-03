@@ -11,6 +11,7 @@ var session = require("express-session");
 var homeRouter = require("./routes/home");
 var registerRouter = require("./routes/register");
 var loginRouter = require("./routes/login");
+var createCourse=require("./routes/create_course")
 
 //default
 var indexRouter = require("./routes/index");
@@ -24,7 +25,7 @@ app.set("view engine", "ejs");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
@@ -39,10 +40,12 @@ app.use(
   })
 );
 
+
 //router
 app.use("/", homeRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
+app.use("/create-course",createCourse)
 
 //default
 app.use("/index", indexRouter);
@@ -61,7 +64,11 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  // res.render("error");
+  res.json({
+    status: err.status,
+    message: err.message
+  })
 });
 
 module.exports = app;

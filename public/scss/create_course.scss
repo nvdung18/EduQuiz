@@ -46,10 +46,13 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
-            .CreateSetHeader-headingText{
+
+            .CreateSetHeader-headingText {
                 font-weight: 750;
+
             }
-            .CreateSetHeader-btn-createCourse {
+
+            .CreateSetHeader-btnOptionCourse {
                 padding-top: 7px;
                 padding-bottom: 7px;
                 width: fit-content;
@@ -75,6 +78,60 @@
                     background-color: #e0e2e9;
                 }
             }
+
+            .CreateSetHeader-modalPermissions {
+                #permissionModalLongTitle {
+                    font-weight: bold;
+                }
+
+                .modal-bodyPermission {
+                    display: flex;
+                    justify-content: space-around;
+                    padding: 25px 16px 35px 16px;
+
+                    .custom-select {
+                        border: 0.125rem solid #d9dde8;
+                        border-radius: 0.25rem;
+                        // color: #3ccfcf;
+                        display: inline-block;
+                        max-width: 100%;
+                        overflow: hidden;
+                        padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+                        position: relative;
+                        vertical-align: middle;
+                        width: auto;
+                    }
+
+                    .labelSelectPermission {
+                        font-size: 14px;
+                        font-weight: 600;
+                        letter-spacing: .0625rem;
+                        line-height: 1.333333333333333;
+                        color: #2e3856;
+                    }
+                    .modal-body__viewPermission{
+                        display: flex !important;
+                        flex-direction: column !important;
+                    }
+                    .modal-body__editPermission {
+                        display: flex !important;
+                        flex-direction: column !important;
+                        .modal-body__passwordEditPermission {
+                            display: none;
+                        }
+
+                        .modal-body__passwordEditPermission--display {
+                            display: block;
+                        }
+                    }
+                }
+
+                .modal-footer__Permission {
+                    .btn-savePermission--noneDisplay {
+                        
+                    }
+                }
+            }
         }
 
         .CreateSetHeader-TitleCourse {
@@ -98,13 +155,13 @@
             padding: 30px;
             margin-bottom: 20px;
 
-            .TermContent-AddRow{
+            .TermContent-AddRow {
                 display: flex;
                 justify-content: center;
                 margin-top: 15px;
                 margin-bottom: 15px;
 
-                .TermContent-addRowButton{
+                .TermContent-addRowButton {
                     border: none;
                     background-color: white;
                     border-bottom: 0.3rem solid #3ccfcf;
@@ -113,14 +170,16 @@
                     padding: 0px;
                     padding-bottom: 2px;
                     outline: none;
-                    &:hover{
+                    cursor: pointer;
+
+                    &:hover {
                         color: #ffcd1f;
                         transition: .3s !important;
                         border-bottom: 0.3rem solid #ffcd1f;
                     }
                 }
             }
-            
+
             .TermToolbar-counter {
                 color: rgb(147, 155, 180);
                 font-weight: 600;
@@ -157,36 +216,43 @@
             .TermContent-inner {
                 display: flex;
                 justify-content: space-between;
+
                 .AutoExpandTextarea-textarea {
                     background-color: white !important;
                 }
-                .TermContent-inner-word{
+
+                .TermContent-inner-word {
                     width: 46%;
                 }
-                .TermContent-inner-definition{
+
+                .TermContent-inner-definition {
                     width: 50%;
-                    .DefinitionSide{
+
+                    .DefinitionSide {
                         display: flex;
                         justify-content: space-between;
 
-                        .DefinitionSide-text{
+                        .DefinitionSide-text {
                             width: 77%;
                         }
 
-                        .DefinitionSide-image{
+                        .DefinitionSide-image {
                             height: fit-content;
                             border-radius: 5px;
                             border: 3px dashed #d9dde8;
                             padding: 5px 15px 5px 15px;
-                            .ImageUploadComponent{
-                                .imgUploadIcon{
+
+                            .ImageUploadComponent {
+                                .imgUploadIcon {
                                     height: fit-content;
                                     text-align: center;
-                                    &:hover{
+
+                                    &:hover {
                                         color: #ffcd1f;
                                     }
                                 }
-                                .imgUploadContext{
+
+                                .imgUploadContext {
                                     font-size: 10px;
                                 }
                             }
@@ -194,12 +260,39 @@
                     }
                 }
             }
+
+            .TermImage-inner {
+                display: none;
+            }
+
+            .TermImageShow-inner {
+                transition: 3s !important;
+                border-top: 0.13rem solid #f6f7fb !important;
+                padding-bottom: 10px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .imageTermSelected {
+                    margin-top: 8px;
+                    width: 10%;
+                }
+
+                .TermImage-option__delete {
+                    &:hover {
+                        color: #ffcd1f;
+                        transition: .3s !important;
+                    }
+                }
+            }
         }
-        .CreateSetPage-footer{
+
+        .CreateSetPage-footer {
             display: flex;
             justify-content: end;
             margin-bottom: 20px;
-            .btn-footer-CreateCourse{
+
+            .btn-footer-CreateCourse {
                 padding: 20px 30px 20px 30px;
                 border-radius: 10px;
                 color: white;

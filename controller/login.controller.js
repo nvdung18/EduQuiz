@@ -1,27 +1,23 @@
-const { token } = require("morgan");
 const UserServices = require("../services/user.services");
-const JWT = require("jsonwebtoken");
+const UserModel = require("../model/user.model")
+const jwt_service = require("../middleware/jwt_service")
+var createError = require('http-errors')
 
-const encodeToken = (userID) => {
-  return JWT.sign(
-    {
-      iss: "EduQuiz",
-      sub: userID,
-      iat: new Date().getTime(),
-      exp: new Date().setDate(new Date().getDate() + 3),
-    },
-    process.env.SECRET_TOKEN
-  );
-};
 const checkUser = async (req, res, next) => {
   try {
-    const user = await UserServices.checkUserExists(req.value.body);
-    if (user) {
-      req.params.idUser = user._id.toString();
-      next();
-    } else {
-      return res.status(400).json({ message: "wrong email or password" });
+    const { email, password } = req.value.body
+    const user = await UserServices.isCheckEmail(email);
+    if (!user) {
+      throw createError.NotFound("User not registered")
     }
+
+    req.params.user = user
+    
+    const isValidPassword = await user.isCheckPassword(password)
+    if (!isValidPassword) {
+      throw createError.Unauthorized()
+    }
+    next();
   } catch (error) {
     next(error);
   }
@@ -29,9 +25,9 @@ const checkUser = async (req, res, next) => {
 
 const createAndSaveToken = async (req, res, next) => {
   try {
-    const newToken = await encodeToken(req.params.idUser);
+    const newToken = await jwt_service.newToken(req.params.user)
     res.cookie("x_access_token", newToken, {
-      expires: new Date(Date.now() + 259200000),
+      expires: new Date(Date.now() + 259200000), //259200000 3 days
     });
     res.redirect("/");
   } catch (error) {
@@ -39,7 +35,7 @@ const createAndSaveToken = async (req, res, next) => {
   }
 };
 
-const loadLoginPage = async (req, res, next) => {
+const renderLoginPage = async (req, res, next) => {
   try {
     let token = req.cookies.x_access_token;
     if (token) {
@@ -55,5 +51,5 @@ const loadLoginPage = async (req, res, next) => {
 module.exports = {
   checkUser,
   createAndSaveToken,
-  loadLoginPage,
+  renderLoginPage,
 };

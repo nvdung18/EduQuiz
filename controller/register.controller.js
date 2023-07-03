@@ -8,6 +8,20 @@ const newUser = async (req, res, next) => {
   }
 };
 
+const loadRegisterPage = async (req, res, next) => {
+    try {
+      let token = req.cookies.x_access_token;
+      if (token) {
+        res.redirect("back");
+      } else {
+        res.render("register");
+      }
+    } catch (error) {
+      next(error);
+    }
+  };
+
 module.exports = {
   newUser,
+  loadRegisterPage
 };
