@@ -1,52 +1,28 @@
-.body-createCourse {
+.body-editCourse {
     // font-family: Arial, Helvetica;
     background-color: rgb(246, 247, 251);
     font-family: hurme_no2-webfont, -apple-system, BlinkMacSystemFont, sans-serif;
     color: rgb(46, 56, 86);
 }
 
-.label-title--red {
-    color: red !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-}
-
-.AutoExpandTextarea-textarea {
-    border: none !important;
-    background-color: rgb(246, 247, 251) !important;
-    border-bottom: 0.2rem solid black !important;
-    border-radius: 0px !important;
-    flex-grow: 0.7;
-    padding: 0 !important;
-    transition: none !important;
-    outline: 0 !important;
-    box-shadow: none !important;
-
-    &:focus {
-        border-bottom: 0.2rem solid #ffcd1f !important;
-        transition: .3s !important;
-    }
-
-    &::placeholder {
-        color: rgb(194, 195, 197) !important;
-        font-family: hurme_no2-webfont, -apple-system, BlinkMacSystemFont, sans-serif !important;
-        font-weight: 500 !important;
-    }
-}
-
-.lable-bottom-AutoExpandTextarea {
-    color: #939bb4 !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-}
-
-.container-CreateCourse {
+.container-EditCourse {
     margin-top: 20px;
     max-width: 1240px !important;
 
     .CreateSetHeader {
         display: flex;
         flex-direction: column;
+        .CreateSetHeader-btnBack{
+            cursor: pointer;
+            .icon-angle-left{
+                color: #3ccfcf;
+            }
+            .CreateSetHeader-backText{
+                color: #2e3856;
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
 
         .CreateSetHeader-heading {
             display: flex;
@@ -299,7 +275,7 @@
             justify-content: end;
             margin-bottom: 20px;
 
-            .btn-footer-CreateCourse {
+            .btn-footer-editCourse {
                 padding: 20px 30px 20px 30px;
                 border-radius: 10px;
                 color: white;

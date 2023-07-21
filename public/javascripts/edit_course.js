@@ -1,10 +1,11 @@
 'use strict';
-
-function init() {
+document.addEventListener('DOMContentLoaded', function () {
     // ----------------Const----------------------------
     let NUM_TERM_DEFAULT = 2
+    let username = getParamFromUrl(0, 1)[0]
+    let courseID = getParamFromUrl(2, 3)[0]
     //-----------------Variables------------------------
-    let bodyCreateCourse = document.getElementById("bodyCreateCourse")
+    let bodyEditCourse = document.getElementById("bodyEditCourse")
     let loader = document.getElementById("load-animation")
     let termToolBarCounter = document.getElementsByClassName("TermToolbar-counter")
     let listInputTermImg = document.getElementsByClassName("inputTermImage")
@@ -12,7 +13,8 @@ function init() {
     var listBtnDeleteTerm = document.getElementsByClassName("TermToolbar-option__delete")
     var listImgTerm = document.getElementsByClassName("imgTermUpload")
     var listBtnDeleteImgOfTerm = document.getElementsByClassName("TermImage-option__delete")
-    var btnCreateCourses = document.getElementsByClassName("btn-createCourse")
+    var btnBackToCourse = document.getElementById("btn-backToCourse")
+    var btnEditCourse = document.getElementsByClassName("btn-editCourse")
     var labelTitleCourse = document.getElementById("label-titleCourse")
     var createSetHeader = document.getElementById("CreateSetHeaderID")
     // var ONLY_ME = 0
@@ -20,27 +22,22 @@ function init() {
     var isCourseChanged = false
     var originContentCourse = getContentCourse()
     setAllEventTermForAllTerm()
-    deleteAutosaveCourse()
-    createCourse()
+    saveEditCourse()
 
     //  -------------------------------------------Event----------------------------------------------------
-    bodyCreateCourse.addEventListener("focusout", function checkToCreateOrUpdateCourse() {
-        console.log(1);
+    bodyEditCourse.addEventListener("focusout", function checkToAutoSaveCourse() {
         if (isCourseChanged) {
             let course = getContentCourse()
             if (!_.isEqual(originContentCourse, course)) {
-                if (checkExistAutosaveCourse() == "false") {
-                    createAutosaveCourse(course)
-                } else {
-                    updateAutoSaveCourse(course)
-                }
+                autoSaveCourse(course)
+
                 isCourseChanged = false
                 originContentCourse = course
             }
         }
     })
 
-    document.getElementById("bodyCreateCourse").addEventListener("input", function inputChanged() {
+    document.getElementById("bodyEditCourse").addEventListener("input", function inputChanged() {
         isCourseChanged = true
     })
 
@@ -88,6 +85,7 @@ function init() {
             listBtnDeleteImgOfTerm[i].addEventListener('click', function () {
                 let imageTermSelected = document.getElementsByClassName("imageTermSelected")[i]
                 let srcImg = imageTermSelected.getAttribute("src")
+
                 let inputFileSelected = document.getElementsByClassName("inputTermImage")[i]
 
                 if (srcImg != "") {
@@ -125,23 +123,13 @@ function init() {
         });
     });
 
-    function deleteAutosaveCourse() {
-        if (document.getElementById("CreateSetHeader-btn-deleteCourse") != undefined) {
-            let btnDelete = document.getElementById("CreateSetHeader-btn-deleteCourse")
-            btnDelete.addEventListener("click", function () {
-                executeDeleteAutosaveCourse()
-            })
-        }
-    }
-
-    function createCourse() {
-        for (let i = 0; i < btnCreateCourses.length; i++) {
-            btnCreateCourses[i].addEventListener("click", function () {
+    function saveEditCourse() {
+        for (let i = 0; i < btnEditCourse.length; i++) {
+            btnEditCourse[i].addEventListener("click", function () {
                 let course = getContentCourse()
-                console.log(course);
 
                 let haveDataTitleCourse = checkTitle(course)
-                let isEligibleTerm = checkAllTerm(course)
+                let isEligibleTerms = checkAllTerm(course)
 
                 if (!haveDataTitleCourse) {
                     labelTitleCourse.textContent = "VUI LÒNG NHẬP TIÊU ĐỀ ĐỂ TẠO HỌC PHẦN"
@@ -149,50 +137,51 @@ function init() {
                     labelTitleCourse.classList.add("label-title--red");
                 }
 
-                if (!isEligibleTerm) {
+                if (!isEligibleTerms) {
                     const alertElement = document.querySelector(".alert-createCourse-Term");
-                    if(!alertElement){
+                    if (!alertElement) {
                         const alertNotEligible = `
                             <div class="alert alert-danger alert-createCourse-Term" role="alert" style="font-size: 14px !important; font-weight: 600 !important;">
                                 BẠN CẦN HAI THẺ ĐỂ TẠO MỘT HỌC PHẦN.
                             </div>
                         `;
-    
+
                         // Chèn nội dung HTML vào phần tử cha sau phàn  tử con cuối cùng
                         createSetHeader.insertAdjacentHTML("afterend", alertNotEligible);
                     }
                 }
 
-                if(isEligibleTerm&&haveDataTitleCourse){
-                    updateToOfficialCourse(course)
+                if (isEligibleTerms && haveDataTitleCourse) {
+                    updateEditCourse(course)
                 }
             })
         }
     }
 
+    btnBackToCourse.onclick = function backToCourse() {
+        var url = new URL(window.location.href).href;
+        let urlCourse = getUrlCourse(url)
+        window.location.assign(urlCourse)
+    }
+
     // -------------------------------------------------------------------------------------------------------------------------
-    function checkExistAutosaveCourse() {
-        let isAutoSave = bodyCreateCourse.dataset.isautosave
-        return isAutoSave
+    function getParamFromUrl(slashStart, slashEnd) {
+        if (slashStart > slashEnd) return
+
+        let url = new URL(window.location.href).pathname
+
+        let parts = url.split("/")
+        const partsWithoutEleEmpty = parts.filter(part => part !== '');
+        let params = []
+        for (let i = slashStart; i < slashEnd; i++) {
+            params.push(partsWithoutEleEmpty[i])
+        }
+
+        return params
     }
-    function createAutosaveCourse(course) {
+    function autoSaveCourse(course) {
         $.ajax({
-            url: '/create-course/autosave',
-            method: 'POST',
-            data: course,
-            success: function (response) {
-                bodyCreateCourse.setAttribute('data-isAutoSave', 'true');
-                console.log(response);
-            },
-            error: function (status, error) {
-                // Handle the error
-                console.error('Request failed. Status:', status, 'Error:', error);
-            }
-        });
-    }
-    function updateAutoSaveCourse(course) {
-        $.ajax({
-            url: '/create-course/autosave',
+            url: '/' + username + '/courses/' + courseID + '/edit-course',
             method: 'PUT',
             data: course,
             success: function (response) {
@@ -274,7 +263,7 @@ function init() {
     }
     function uploadFileAndShowImgSelected(formData, positionShowImgSelected) {
         $.ajax({
-            url: '/create-course/upload-image',
+            url: '/' + username + '/courses/' + courseID + '/edit-course/upload-image',
             method: 'POST',
             data: formData,
             processData: false,
@@ -422,69 +411,24 @@ function init() {
         return termRowWrap
     }
 
-    function executeDeleteAutosaveCourse() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                var url = new URL(window.location.href).href;
-
-                let courseID = getCourseIDFromUrl(url)
-
-                let urlWithoutAutosave = getUrlCreateCourse(url)
-
-                $.ajax({
-                    url: '/create-course/autosave',
-                    method: 'DELETE',
-                    data: { _id: courseID },
-                    success: function (response) {
-                        console.log(response);
-                        window.location.assign(urlWithoutAutosave)
-                    },
-                    error: function (status, error) {
-                        // Handle the error
-                        console.error('Request failed. Status:', status, 'Error:', error);
-                    }
-                });
-            }
-        })
-    }
-    function getCourseIDFromUrl(url) {
-        var lastIndexUrl = url.lastIndexOf("/"); // Tìm vị trí của ký tự "/" cuối cùng
-        var param = url.substring(lastIndexUrl + 1); // Trích xuất chuỗi con sau ký tự "/" cuối cùng
-        return param
-    }
-    function getUrlCreateCourse(url) {
-        var indexOfUrl = url.indexOf("autosave")
-        var urlWithoutAutosave = url.substring(0, indexOfUrl - 1)
-        return urlWithoutAutosave
-    }
-
     function checkTitle(course) {
         let haveDataTitleCourse = course.titleCourse != undefined ? true : false
         return haveDataTitleCourse
     }
     function checkAllTerm(course) {
-        let isEligibleToCreate = course.cards.length >= NUM_TERM_DEFAULT ? true : false
-        return isEligibleToCreate
+        let isEligibleToSave = course.cards.length >= NUM_TERM_DEFAULT ? true : false
+        return isEligibleToSave
     }
-    function updateToOfficialCourse(course){
-        course.autoSave=false
+    function updateEditCourse(course) {
         var url = new URL(window.location.href).href;
-        let urlHome=getUrlHome(url)
+        let urlCourse = getUrlCourse(url)
 
         $.ajax({
-            url: '/create-course/official-course',
+            url: '/' + username + '/courses/' + courseID + '/edit-course/save-course',
             method: 'PUT',
             data: course,
             success: function (response) {
-                window.location.assign(urlHome)
+                window.location.assign(urlCourse)
                 console.log(response);
             },
             error: function (status, error) {
@@ -493,10 +437,11 @@ function init() {
             }
         });
     }
-    function getUrlHome(url) {
-        var indexOfUrl = url.indexOf("create-course")
-        var urlHome = url.substring(0, indexOfUrl - 1)
-        return urlHome
+    function getUrlCourse(url) {
+        var lastIndexUrl = url.lastIndexOf("/")
+        let substringFromLastIndex = url.substring(lastIndexUrl + 1)
+        let urlCourse = url.replace(substringFromLastIndex, "flash-card")
+        return urlCourse
     }
 
     function setAllEventTermForAllTerm() {
@@ -510,4 +455,4 @@ function init() {
         loader.innerHTML = `<div class="overlay"></div>
                             <div class="loader"></div>`
     }
-}
+}, false)

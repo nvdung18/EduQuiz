@@ -7,19 +7,19 @@ const renderCreateCoursePageWithCourseAutoSave = async (req, res, next) => {
     let userID = res.get("Authorization")
     let autoSaveCourse = await CourseServices.getAutoSaveCourseByUserId(new ObjectId(userID))
     if (autoSaveCourse) {
-        res.redirect('/create-course/autosave/'+autoSaveCourse._id)
+        res.redirect('/create-course/autosave/' + autoSaveCourse._id)
     } else {
         res.render("create_course", { course: null, defaultTotalTerms: 5, isAutoSave: false })
     }
 }
 
-const renderAutoSaveCourse=async (req,res,next)=>{
+const renderAutoSaveCourse = async (req, res, next) => {
     let userID = res.get("Authorization")
     let autoSaveCourse = await CourseServices.getAutoSaveCourseByUserId(new ObjectId(userID))
 
-    let defaultTotalTerms=autoSaveCourse.cards.length
-    if(defaultTotalTerms==0) defaultTotalTerms+=2
-    if(defaultTotalTerms==1) defaultTotalTerms+=1
+    let defaultTotalTerms = autoSaveCourse.cards.length
+    if (defaultTotalTerms == 0) defaultTotalTerms += 2
+    if (defaultTotalTerms == 1) defaultTotalTerms += 1
 
     res.render("create_course", { course: autoSaveCourse, defaultTotalTerms: defaultTotalTerms, isAutoSave: autoSaveCourse.autoSave })
 }
@@ -40,11 +40,16 @@ const updateAutoSaveCourse = async (req, res, next) => {
     let autoSaveCourse = await CourseServices.getAutoSaveCourseByUserId(new ObjectId(userID))
 
     const course = req.body
+    console.log(course);
     if (course.titleCourse != undefined) {
         autoSaveCourse.titleCourse = course.titleCourse
+    } else {
+        autoSaveCourse.titleCourse = " "
     }
     if (course.description != undefined) {
         autoSaveCourse.description = course.description
+    } else {
+        autoSaveCourse.description = " "
     }
     if (course.permissionView != undefined) {
         autoSaveCourse.permissionView = course.permissionView
@@ -72,11 +77,49 @@ const updateAutoSaveCourse = async (req, res, next) => {
 
 }
 
-const deleteAutosaveCourse=async (req,res,next)=>{
-    let courseID=req.body._id
+const deleteAutosaveCourse = async (req, res, next) => {
+    let courseID = req.body._id
     console.log(courseID);
-    let isDelete=CourseServices.deleteAutosaveCourseByCourseID(new ObjectId(courseID))
+    let isDelete = CourseServices.deleteAutosaveCourseByCourseID(new ObjectId(courseID))
     res.send("Ok")
+}
+
+const updateAutoSaveToOfficialCourse = async (req, res, next) => {
+    let userID = res.get("Authorization")
+    let autoSaveCourse = await CourseServices.getAutoSaveCourseByUserId(new ObjectId(userID))
+    const course = req.body
+
+    autoSaveCourse.titleCourse = course.titleCourse
+
+    autoSaveCourse.description = course.description
+
+    autoSaveCourse.permissionView = course.permissionView
+
+    autoSaveCourse.permissionEdit = course.permissionEdit
+
+    autoSaveCourse.cards = course.cards
+
+    autoSaveCourse.autoSave = course.autoSave
+
+    let date = new Date()
+    autoSaveCourse.created = date
+    autoSaveCourse.updated = date
+
+    await autoSaveCourse.save()
+
+    if(!req.value) req.value={}
+    if(!req.value.course) req.value.course={}
+    req.value.course=autoSaveCourse
+
+    next()
+}
+
+const updateCourseForUser=async (req,res)=>{
+    let user = await UserServices.getUserByID(res.get("Authorization"))
+    let course=req.value.course
+    
+    let isUpdatedUser=UserServices.updateCourseUserByID(course,user)
+    res.send("Cap nhap thanh cong")
 }
 
 module.exports = {
@@ -85,4 +128,6 @@ module.exports = {
     updateAutoSaveCourse,
     renderAutoSaveCourse,
     deleteAutosaveCourse,
+    updateAutoSaveToOfficialCourse,
+    updateCourseForUser,
 }

@@ -50,13 +50,13 @@
                 Thư viện của bạn
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Học phần</a>
-                <a class="dropdown-item" href="#">Thư mục</a>
-                <a class="dropdown-item" href="#">Lớp học</a>
+                <a class="dropdown-item" href="/<%= userInfor.username %>/courses/">Học phần</a>
+                <a class="dropdown-item" href="/<%= userInfor.username %>/folders/">Thư mục</a>
+                <a class="dropdown-item" href="/<%= userInfor.username %>/classes/">Lớp học</a>
               </div>
             </div>
           </div>
-          <div class="leftItem-dropdownTopic">
+          <!-- <div class="leftItem-dropdownTopic">
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle btn-whiteColor btn-center fontNavigationItem"
                 type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -70,7 +70,7 @@
                 <a class="dropdown-item" href="#">Thể thao</a>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="TopNavigation-contentMiddle col-5">
@@ -95,7 +95,7 @@
                   class="btn btn-primary DropdownCreateOption-btnCreateCourse DropdownCreateOption-btnOption"
                   data-toggle="modal" data-target=".bd-example-modal-lg">
                   <i class="fa-regular fa-square mr-2"></i>
-                  <a class="" href="#" style="text-decoration: none; color: rgb(88, 99, 128)">Học phần</a>
+                  <a class="" href="/create-course" style="text-decoration: none; color: rgb(88, 99, 128)">Học phần</a>
                 </button>
               </div>
               <div class="dropdown-item DropdownCreateDir DropdownCreateOption--nonePadding-Background">
@@ -138,7 +138,7 @@
 
                       <div class="setPageHeader-createdBy align-self-end ml-2">
                         <div class="createdBy-nickName">
-                          NVD1810
+                          <%= userInfor.username %>
                         </div>
                         <div class="createddBy-author">
                           Hung Nguyen
@@ -169,7 +169,7 @@
                 </div>
                 <div class="dropdown-item DropdownCreateOption--nonePadding-Background">
                   <!-- Button trigger modal -->
-                  <button type="button"
+                  <button type="button" id="btn-logout"
                     class="btn btn-primary DropdownCreateOption-btnCreateClass DropdownCreateOption-btnOption">
                     <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>
                     Đăng xuất
@@ -194,3 +194,77 @@
     </div>
   </header>
 </div>
+<!-- Modal -->
+<div class="modal fade DropdownCreateDir-modal-lg DropdownCreate-modal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title DropdownCreate-Modal-title" id="exampleModalLongTitle">Tạo thư mục mới</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/<%= userInfor.username %>/folders" method="post">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nhập tiêu đề</label>
+            <input type="text" class="form-control AutoExpandTextarea-textarea" id="recipient-name" name="titleFolder">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Nhập mô tả tùy chọn</label>
+            <textarea class="form-control AutoExpandTextarea-textarea" id="message-text" name="descriptionFolder"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary">Tạo</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade DropdownCreateClass-modal-lg DropdownCreate-modal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title DropdownCreate-Modal-title" id="exampleModalLongTitle">Tạo lớp mới</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/<%= userInfor.username %>/classes" method="post">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nhập tên lớp (khóa học, giáo viên, năm nay, phần
+              vv)</label>
+            <input type="text" class="form-control AutoExpandTextarea-textarea" id="recipient-name" name="nameClass">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Nhập mô tả (tùy chọn)</label>
+            <textarea class="form-control AutoExpandTextarea-textarea" id="message-text" name="descriptionCLass"></textarea>
+          </div>
+          <!-- <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="CoursePermission-Add-Delete">
+            <label class="form-check-label" for="CoursePermission-Add-Delete">
+              Cho phép các thành viên trong lớp thêm và bỏ học phần
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="Permission-AddMembers">
+            <label class="form-check-label" for="Permission-AddMembers">
+              Cho phép các thành viên trong lớp mời thành viên mới
+            </label>
+          </div> -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary">Tạo</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/javascripts/logout.js"></script>

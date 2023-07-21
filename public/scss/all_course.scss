@@ -52,7 +52,7 @@
                 }
             }
 
-            .activityFeed-allCoruse {
+            .activityFeed-allCourse {
                 .activityFeed-course {
                     margin-bottom: 10px;
                     background-color: white;
@@ -63,6 +63,10 @@
                     border-top-right-radius: 5px;
                     border-bottom-left-radius: 5px;
                     border-bottom-right-radius: 5px;
+                    &:hover{
+                        border-bottom: 0.3rem solid #dbdfff;
+                        transition: all 0.12s cubic-bezier(0.47, 0, 0.745, 0.715);
+                    }
                     .activityFeed-course__info {
                         display: flex;
 
@@ -84,9 +88,10 @@
                         a{
                             font-size: 20px;
                             font-weight: bold;
+                            color: #2e3856 ;
 
                             &:hover{
-                                color:#ff983a;;
+                                color:#ff983a;
                             }
                         }
                     }

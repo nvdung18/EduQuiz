@@ -5,6 +5,7 @@ const encodeToken = (user) => {
     {
       iss: "EduQuiz",
       userID: user._id.toString(),
+      username:user.username,
       imageProfile: user.imageProfile,
       role: user.role,
       iat: new Date().getTime(),
@@ -36,6 +37,7 @@ const verifyToken = async (req, res, next) => {
       if (decode) {
         res.set("Authorization", decode.userID)
         req.params.userinfo=({
+          'username':decode.username,
           'imageProfile': decode.imageProfile,
           'role': decode.role
         })

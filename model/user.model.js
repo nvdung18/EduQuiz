@@ -24,7 +24,7 @@ var UserSchema = new Schema(Joigoose.convert(joiUserSchema), {
 
 const newCourseOptions = {
   type: [{ type: Schema.Types.ObjectId }],
-  ref: 'user',
+  ref: 'course',
 };
 UserSchema.path('course',newCourseOptions)
 // UserSchema.path('course').ref('courses')
@@ -48,22 +48,7 @@ UserSchema.methods.isCheckPassword = async function (password) {
   }
 }
 
-// console.log(UserSchema);
 const UserModel = mongoose.model("user", UserSchema);
 
-
-// class User {
-//     constructor(idUser, imageProfile, accountName, password, method, email, username, userToken, role) {
-//         this.idUser = idUser
-//         this.imageProfile = imageProfile
-//         this.accountName = accountName
-//         this.password = password
-//         this.method = method
-//         this.email = email
-//         this.username = username
-//         this.userToken = userToken
-//         this.role = role
-//     }
-// }
 
 module.exports = UserModel;

@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
 const token = require("../middleware/jwt_service");
+const resLocals = require("../middleware/res_locals")
 const multer = require("multer")
 const CourseModel = require("../model/course.model")
 const UserModel = require("../model/user.model")
-const resLocals = require("../middleware/res_locals")
 const createCourseController = require("../controller/create_course.controller")
 const uploadImageController=require("../controller/upload-file.controller")
 
@@ -26,6 +26,8 @@ router.post('/upload-image',upload.single("filename"),uploadImageController.uplo
 router.route("/autosave/:id")
     .get(createCourseController.renderAutoSaveCourse)
 
+router.route("/official-course")
+    .put(createCourseController.updateAutoSaveToOfficialCourse,createCourseController.updateCourseForUser)
 
 
 

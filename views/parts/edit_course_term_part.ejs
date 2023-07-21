@@ -1,0 +1,76 @@
+<input type="hidden" id="defaultTotalTerms" value="<%= course.cards.length %>">
+<% for(let i=0;i<course.cards.length;i++){ %>
+    <div class="CreateSetPage-termRowWrap">
+        <div class="TermToolbar mb-3">
+            <span class="TermToolbar-counter">
+                <%= i+1 %>
+            </span>
+            <div class="TermToolbar-option">
+                <div class="TermToolbar-option__dragToggle mr-3 ">
+                    <i class="fa-solid fa-grip-lines"></i>
+                </div>
+                <div class="TermToolbar-option__delete pointer-btn">
+                    <i class="fa-solid fa-trash"></i>
+                </div>
+            </div>
+        </div>
+        <div class="TermContent-inner">
+            <div class="TermContent-inner-word">
+                <div class="mb-0">
+                    <% if(course==null||course.cards[i]==undefined){ %>
+                        <input type="textarea" tabindex="6" class="form-control AutoExpandTextarea-textarea inputTerm"
+                            id="formGroupExampleInput" placeholder="" value="">
+                        <label for="formGroupExampleInput" class="form-label mt-2 lable-bottom-AutoExpandTextarea">THUẬT
+                            NGỮ</label>
+                    <%} else{ %> 
+                        <input type="textarea" tabindex="6" class="form-control AutoExpandTextarea-textarea inputTerm"
+                        id="formGroupExampleInput" placeholder="" value="<%= course.cards[i].term==" "?"":course.cards[i].term %>">
+                        <label for="formGroupExampleInput" class="form-label mt-2 lable-bottom-AutoExpandTextarea">THUẬT
+                            NGỮ</label>
+                    <% } %>
+                </div>
+            </div>
+            <div class="TermContent-inner-definition">
+                <div class="DefinitionSide">
+                    <div class="DefinitionSide-text">
+                        <div class="mb-0">
+                            <% if(course==null||course.cards[i]==undefined){ %>
+                                <input type="textarea" tabindex="6" class="form-control AutoExpandTextarea-textarea inputDefine"
+                                    id="formGroupExampleInput" placeholder="" value="">
+                                <label for="formGroupExampleInput" class="form-label mt-2 lable-bottom-AutoExpandTextarea">ĐỊNH
+                                    NGHĨA</label>
+                            <%} else{ %> 
+                                <input type="textarea" tabindex="6" class="form-control AutoExpandTextarea-textarea inputDefine"
+                                id="formGroupExampleInput" placeholder="" value="<%= course.cards[i].define==" "?"":course.cards[i].define %>">
+                                <label for="formGroupExampleInput" class="form-label mt-2 lable-bottom-AutoExpandTextarea">ĐỊNH
+                                    NGHĨA</label>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="DefinitionSide-image">
+                        <div class="ImageUploadComponent">
+                            <div class="imgUploadIcon pointer-btn imgTermUpload" id="imgTermUpload">
+                                <i class="fa-solid fa-image"></i>
+                            </div>
+                            <span class="imgUploadContext">HÌNH ẢNH</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="TermImage-inner mt-2 ImgForTerm " data-abc="">
+            <div class="TermImage-wrap">
+                <% if(course==null||course.cards[i]==undefined){ %>
+                    <input type="file" name="filename" class="inputTermImage mt-3">
+                    <img src="" alt="" class="imageTermSelected" id="imageTermSelectedID">
+                <%} else{ %> 
+                    <input type="file" name="filename" class="inputTermImage mt-3">
+                    <img src="<%= course.cards[i].image==" "?"":course.cards[i].image %>" alt="" class="imageTermSelected" id="imageTermSelectedID">
+                <% } %>
+            </div>
+            <div class="TermImage-option__delete pointer-btn mt-2">
+                <i class="fa-solid fa-trash"></i>
+            </div>
+        </div>
+    </div>
+<% } %>

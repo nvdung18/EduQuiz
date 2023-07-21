@@ -1,23 +1,19 @@
-var mongoose = require('../connect_db')
+var mongoose = require('mongoose')
+const Joi = require("joi");
+const Joigoose = require("joigoose")(mongoose, { convert: false });
 const Schema = mongoose.Schema
 
-const LearningChainSchema = new Schema({
-    learnedDay: Date,
-    idUser: String
-}, {
+const joiLearningChainSchema = Joi.object().keys({
+    userID: Joi.string().required(),
+    month_year:Joi.date().default(Date.now),
+    learnedDays: Joi.array().items(
+        Joi.date().default(Date.now)
+    ).default([])
+})
+const LearningChainSchema = new Schema(Joigoose.convert(joiLearningChainSchema), {
     collection: 'learningchain'
 })
 
 const LearningChainModel = mongoose.model('learningchain', LearningChainSchema)
 
-// class LearningChain {
-//     constructor(idLearningChain, learnedDay, idUser) {
-//         this.idLearningChain = idLearningChain
-//         this.learnedDay = learnedDay
-//         this.idUser = idUser
-//     }
-// }
-module.exports = {
-    LearningChainModel
-}
-module.exports.LearningChain = LearningChain
+module.exports = LearningChainModel

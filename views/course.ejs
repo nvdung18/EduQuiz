@@ -13,6 +13,7 @@
 </head>
 
 <body class="body-course">
+    <%- include('parts/header') %>
     <main class="container main-course pt-4">
         <div class="row">
             <div class="col-9 main-course__content">
@@ -23,50 +24,86 @@
                         font-size: 2rem;
                         letter-spacing: normal;
                         line-height: 1.25;">
-                            04/08/2022-Vocabulary (P1)
+                            <%= course.titleCourse %>
+                        </h1>
+                    </div>
+                    <div class="learn-card__description">
+                        <h1 style="word-break: break-word;
+                        font-weight: 525;
+                        font-size: 1rem;
+                        letter-spacing: normal;
+                        line-height: 1.25;">
+                            <%= course.description==undefined?"":course.description %>
                         </h1>
                     </div>
 
                     <div class="learn-card__learn-func">
-                        <button type="button" class="btn btn-primary mr-3">primary</button>
-                        <button type="button" class="btn btn-primary mr-3">primary</button>
-                        <button type="button" class="btn btn-primary mr-3">primary</button>
+                        <button type="button" class="btn btn-light mr-3 learn-func__memoryCard">
+                            <i class="learn-func__icon fa-solid fa-chalkboard-user"></i>
+                            <p class="learn-func__name">Thẻ ghi nhớ</p>
+                        </button>
                     </div>
 
                     <div class="learn-card__current-card">
-                        <div class="card" onclick="this.classList.toggle('flipped')">
-                            <div class="card-inner">
-                                <div class="card-front">
-                                    <h2>HTML</h2>
-                                </div>
-                                <div class="card-back">
-                                    <p>HyperText Markup Language</p>
-                                </div>
+                        <div id="carouselCards" class="carousel slide" data-ride="carousel"  data-interval="false">
+                            <ol class="carousel-indicators">
+                                <% for(let i=0;i<course.cards.length;i++){ %>
+                                    <li data-target="#carouselCards" data-slide-to=<%= i+1 %> class="indicator-card <%= i==0?"active":"" %>"></li>
+                                <% } %>
+                            </ol>
+                            <div class="carousel-inner carousel-card-inner" id="carousel-card-inner">
+                                <% course.cards.forEach(function(card,index){ %>
+                                    <div class="carousel-item <%= index==0?"active":"" %>">
+                                        <div class="card" onclick="this.classList.toggle('flipped')">
+                                            <div class="card-inner">
+                                                <div class="card-front">
+                                                    <h2><%= card.term==" "?"...":card.term %></h2>
+                                                </div>
+                                                <div class="card-back">
+                                                    <div class="card-back__containText">
+                                                        <p class="card-back__define"><%= card.define==" "?"...":card.define %></p>
+                                                    </div>
+                                                    <% if(card.image!=" "){ %>
+                                                        <div class="card-back__containImg">
+                                                            <img src="<%= card.image==" "?"":card.image %>" class="card-back__image" alt="">
+                                                        </div>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
                             </div>
                         </div>
                     </div>
 
                     <div class="learn-card__interact-card">
                         <div class="interact-card__left d-flex p">
-                            <div class="btn-interact-card btn-roll-card pointer-btn">
+                            <div class="btn-interact-card btn-roll-card pointer-btn" id="btn-rollCard" title="Bắt đầu">
                                 <i class="fa-solid fa-play"></i>
                             </div>
 
-                            <div class="btn-interact-card btn-mix-card ml-2 pointer-btn">
+                            <div class="btn-interact-card btn-mix-card ml-2 pointer-btn" id="btn-mixCard" title="Trộn thẻ">
                                 <i class="fa-brands fa-mixer"></i>
                             </div>
                         </div>
                         <div class="interact-card__middle d-flex">
-                            <div class="btn-interact-card btn-transfer-card pointer-btn">
-                                <i class="fa-solid fa-arrow-left"></i>
-                            </div>
+                            <a class="" href="#carouselCards" role="button" data-slide="prev" style="text-decoration: none;">
+                                <div class="btn-interact-card btn-transfer-card pointer-btn ">
+                                    <i class="fa-solid fa-arrow-left" aria-hidden="true" style="color: #586380;"></i>
+                                    <span class="sr-only">Previous</span>
+                                </div>
+                            </a>
 
-                            <div class="btn-interact-card btn-transfer-card ml-2 pointer-btn">
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </div>
+                            <a class="" href="#carouselCards" role="button" data-slide="next" style="text-decoration: none;">
+                                <div class="btn-interact-card btn-transfer-card ml-2 pointer-btn">
+                                    <i class="fa-solid fa-arrow-right" style="color: #586380;" aria-hidden="true"></i>
+                                    <span class="sr-only">Next</span>
+                                </div>
+                            </a>
                         </div>
                         <div class="interact-card__right d-flex">
-                            <div class="btn-interact-card btn-setting-card pointer-btn">
+                            <div class="btn-interact-card btn-setting-card pointer-btn" id="btn-setting">
                                 <i class="fa-solid fa-gear"></i>
                             </div>
 
@@ -82,7 +119,7 @@
                         <div class="setPageHeader-info d-flex">
                             <div class="setPageHeader-avatar">
                                 <img style="border-radius: 50%; width: 60px;" class="setPageHeader-avatar--circle"
-                                    src="/images/84628273_176159830277856_972693363922829312_n.jpg" alt="">
+                                    src="<%= userInfo.imageProfile==" "?"https://firebasestorage.googleapis.com/v0/b/image-edu-25269.appspot.com/o/files%2F84628273_176159830277856_972693363922829312_n.jpg?alt=media&token=1e381211-c8c8-49a1-a51d-1fedc82530b0":userInfo.imageProfile %>" alt="">
                             </div>
 
                             <div class="setPageHeader-createdBy align-self-end ml-1">
@@ -90,44 +127,55 @@
                                     Tạo bởi
                                 </div>
                                 <div class="createdBy-author">
-                                    NVD1810
+                                    <%= userInfo.username %>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="setPageHeader-perform">
-                            đã thêm vào Toeic_P1
+                        <div class="setPageHeader-perform mt-1">
+                            đã thêm vào <span style="color:#4255ff"><%= course.titleCourse %></span>
                         </div>
                     </div>
 
                     <div class="setPageOption d-flex">
-                        <div class="setPageOption__btn-option pointer-btn">
-                            <i class="fa-solid fa-plus"></i>
-                        </div>
-                        <div class="setPageOption__btn-option pointer-btn">
+                        <div class="setPageOption__btn-option pointer-btn btn-edit-course" title="Chỉnh sửa">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </div>
-                        <div class="setPageOption__btn-option pointer-btn">
+                        <div class="setPageOption__btn-option pointer-btn" title="Chia sẻ">
                             <i class="fa-solid fa-share-from-square"></i>
                         </div>
-                        <div class="setPageOption__btn-option pointer-btn">
-                            <i class="fa-solid fa-ellipsis-vertical fa-rotate-90"></i>
+                        <div class="setPageOption__btn-option pointer-btn" >
+                            <div class="dropdown dropdown-more-option">
+                                <button class="btn dropdown-toggle btn-toggle-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical fa-rotate-90"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-moreOption " aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item dropdown-item-option" href="#">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                        <span>Thêm vào lớp học hoặc thư mục</span>
+                                    </a>
+                                    <a class="dropdown-item dropdown-item-option" id="btn-delete-course">
+                                        <i class="fa-solid fa-trash"></i>
+                                        <span>Xóa</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="all-card SetPage-terms">
                     <div class="SetPageTermsHeader d-flex justify-content-between">
-                        <span class="SetPageTermsHeader-termsHeading">Thuật ngữ trong học phần này (9)</span>
+                        <span class="SetPageTermsHeader-termsHeading">Thuật ngữ trong học phần này (<%= course.cards.length %>)</span>
                         <div class="setPageTermsHeader-arrange">
                             <div class="dropdown">
-                                <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown"
+                                <button class="btn btn-info dropdown-toggle" id="dropdownArrangeBtn" type="button" data-toggle="dropdown"
                                     aria-expanded="false">
                                     Thứ tự gốc
                                 </button>
                                 <div class="dropdown-menu">
-                                    <button class="dropdown-item" type="button">Thứ tự gốc</button>
-                                    <button class="dropdown-item" type="button">Bảng chử cái</button>
+                                    <button class="dropdown-item dropdown-item-arrange" type="button" value="0">Thứ tự gốc</button>
+                                    <button class="dropdown-item dropdown-item-arrange" type="button" value="1">Bảng chử cái</button>
                                 </div>
                             </div>
 
@@ -135,74 +183,39 @@
                     </div>
 
                     <div class="SetPageTerms-termsList mt-3">
-                        <div class="SetPageTerms-container">
-                            <!-- Thẻ 1 -->
-                            <div class="SetPageTerms-card">
-                                <div class="term" >Thuật ngữ 1</div>
-                                <div class="explain-term">
-                                    <div class="definition mr-3">Giải thích thuật ngữ 1</div>
-                                    <img class="SetPageTerms-image" src="/images/84628273_176159830277856_972693363922829312_n.jpg"
-                                        alt="Hình ảnh">
-                                </div>
+                        <div class="SetPageTerms-container" id="term-list-inner">
+                            <!-- Thẻ -->
+                            <% course.cards.forEach(function(card,index){ %>
+                                <div class="SetPageTerms-card">
+                                    <div class="term">
+                                        <textarea name="" id="" disabled="true" class="term-text term__none-border"><%= card.term==" "?"":card.term %></textarea>
+                                    </div>
+                                    <div class="explain-term">
+                                        <div class="explain-term__containDefine">
+                                            <textarea class="definition mr-3 definition__none-border" disabled="true"><%=  card.define==" "?"":card.define %></textarea>
+                                        </div>                             
+                                        <% if(card.image!=" "){ %>
+                                            <div class="explain-term__containImg">
+                                                <img class="explain-term__image lightBoxImg" src="<%= card.image%>"
+                                                    alt="Hình ảnh">
+                                            </div>
+                                        <% } %>
+                                    </div>
 
-                                <div class="SetPageTerms-setPageOption d-flex">
-                                    <div class="setPageOption__btn-option pointer-btn mr-3">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </div>
-                                    <div class="setPageOption__btn-option pointer-btn mr-3">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </div>
-                                    <div class="setPageOption__btn-option pointer-btn">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="SetPageTerms-card">
-                                <div class="term" >Thuật ngữ 1</div>
-                                <div class="explain-term">
-                                    <div class="definition mr-3">Giải thích thuật ngữ 1</div>
-                                    <img class="SetPageTerms-image" src="/images/84628273_176159830277856_972693363922829312_n.jpg"
-                                        alt="Hình ảnh">
-                                </div>
-
-                                <div class="SetPageTerms-setPageOption d-flex">
-                                    <div class="setPageOption__btn-option pointer-btn mr-3">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </div>
-                                    <div class="setPageOption__btn-option pointer-btn mr-3">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </div>
-                                    <div class="setPageOption__btn-option pointer-btn">
-                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    <div class="SetPageTerms-setPageOption d-flex">
+                                        <div class="setPageOption__btn-option pointer-btn btn-speak">
+                                            <i class="fa-solid fa-volume-high"></i>
+                                        </div>
+                                        <div class="setPageOption__btn-option pointer-btn btn-edit-card">
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="SetPageTerms-card">
-                                <div class="term" >Thuật ngữ 1</div>
-                                <div class="explain-term">
-                                    <div class="definition mr-3">Giải thích thuật ngữ 1</div>
-                                    <img class="SetPageTerms-image" src="/images/84628273_176159830277856_972693363922829312_n.jpg"
-                                        alt="Hình ảnh">
-                                </div>
-
-                                <div class="SetPageTerms-setPageOption d-flex">
-                                    <div class="setPageOption__btn-option pointer-btn mr-3">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </div>
-                                    <div class="setPageOption__btn-option pointer-btn mr-3">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </div>
-                                    <div class="setPageOption__btn-option pointer-btn">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- Thêm các thẻ khác tương ứng với học phần -->
+                            <% }) %>
                         </div>
+                    </div>
+                    <div class="SetPageTerms-addTerms">
+                        <button type="button" class="btn btn-primary btn-addTerms btn-edit-course" >Thêm hoặc xóa thuật ngữ</button>
                     </div>
                 </div>
             </div>
@@ -213,15 +226,15 @@
     </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/javascripts/course.js"></script>
 </body>
 
 </html>

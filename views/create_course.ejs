@@ -19,77 +19,83 @@
     <%- include('parts/header') %>
         <main class="container container-CreateCourse">
             <div class="CreateSetPage">
-                <div class="CreateSetHeader">
+                <div class="CreateSetHeader" id="CreateSetHeaderID">
                     <div class="CreateSetHeader-heading">
                         <h2 class="CreateSetHeader-headingText">Tạo học phần mới</h2>
                         <div class="CreateSetHeader-headingOption d-flex justify-content-center align-items-center">
                             <button type="button"
-                                class="btn btn-info CreateSetHeader-btn-createCourse CreateSetHeader-btnOptionCourse pointer-btn mr-3">Tạo</button>
-                            
+                                class="btn btn-info CreateSetHeader-btn-createCourse CreateSetHeader-btnOptionCourse pointer-btn mr-3 btn-createCourse">Tạo</button>
+
                             <% if(course!=null){ %>
                                 <button type="button"
-                                    class="btn btn-info CreateSetHeader-btnOptionCourse pointer-btn mr-3" id="CreateSetHeader-btn-deleteCourse">Xóa học phần tự lưu</button>
-                            <% } %>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="CreateSetHeader-permissions pointer-btn" data-toggle="modal"
-                                data-target="#permissionModalCenter">
-                                <i class="fa-solid fa-gear"></i>
-                            </button>
+                                    class="btn btn-info CreateSetHeader-btnOptionCourse pointer-btn mr-3"
+                                    id="CreateSetHeader-btn-deleteCourse">Xóa học phần tự lưu</button>
+                                <% } %>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="CreateSetHeader-permissions pointer-btn"
+                                        data-toggle="modal" data-target="#permissionModalCenter">
+                                        <i class="fa-solid fa-gear"></i>
+                                    </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade CreateSetHeader-modalPermissions" id="permissionModalCenter"
-                                tabindex="-1" role="dialog" aria-labelledby="permissionModalCenterTitle"
-                                aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h2 class="modal-title" id="permissionModalLongTitle">Tùy chọn</h2>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body modal-bodyPermission">
-                                            <div class="modal-body__viewPermission">
-                                                <label for="selectViewPermission" class="labelSelectPermission">Hiển thị
-                                                    với</label>
-                                                <% if(course!=null){ %>
-                                                    <select class="custom-select" id="selectViewPermission">
-                                                        <option <%=course.permissionView==0?"selected":"" %> value="0">Chỉ
-                                                            tôi</option>
-                                                        <option <%=course.permissionView==1?"selected":"" %> value="1">Mọi
-                                                            người</option>
-                                                    </select>
-                                                <% }else{ %>
-                                                    <select class="custom-select" id="selectViewPermission">
-                                                        <option selected value="0">Chỉ
-                                                            tôi</option>
-                                                        <option value="1">Mọi
-                                                            người</option>
-                                                    </select>
-                                                <% } %>
-                                            </div>
-                                            <div class="modal-body__editPermission">
-                                                <label for="selectViewPermission" class="labelSelectPermission">Ai có
-                                                    thể sửa</label>
-                                                <select class="custom-select" id="selectEditPermission">
-                                                    <option selected value="0">Chỉ tôi</option>
-                                                    <!-- <option value="1">Mọi người</option>
+                                    <!-- Modal -->
+                                    <div class="modal fade CreateSetHeader-modalPermissions" id="permissionModalCenter"
+                                        tabindex="-1" role="dialog" aria-labelledby="permissionModalCenterTitle"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h2 class="modal-title" id="permissionModalLongTitle">Tùy chọn</h2>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body modal-bodyPermission">
+                                                    <div class="modal-body__viewPermission">
+                                                        <label for="selectViewPermission"
+                                                            class="labelSelectPermission">Hiển thị
+                                                            với</label>
+                                                        <% if(course!=null){ %>
+                                                            <select class="custom-select" id="selectViewPermission">
+                                                                <option <%=course.permissionView==0?"selected":"" %>
+                                                                    value="0">Chỉ
+                                                                    tôi</option>
+                                                                <option <%=course.permissionView==1?"selected":"" %>
+                                                                    value="1">Mọi
+                                                                    người</option>
+                                                            </select>
+                                                            <% }else{ %>
+                                                                <select class="custom-select" id="selectViewPermission">
+                                                                    <option selected value="0">Chỉ
+                                                                        tôi</option>
+                                                                    <option value="1">Mọi
+                                                                        người</option>
+                                                                </select>
+                                                                <% } %>
+                                                    </div>
+                                                    <div class="modal-body__editPermission">
+                                                        <label for="selectViewPermission"
+                                                            class="labelSelectPermission">Ai có
+                                                            thể sửa</label>
+                                                        <select class="custom-select" id="selectEditPermission">
+                                                            <option selected value="0">Chỉ tôi</option>
+                                                            <!-- <option value="1">Mọi người</option>
                                                     <option value="2">Người có mật khẩu</option> -->
-                                                </select>
-                                                <!-- <div class="modal-body__passwordEditPermission mt-2" id="modal-body__passwordEditPermission">
+                                                        </select>
+                                                        <!-- <div class="modal-body__passwordEditPermission mt-2" id="modal-body__passwordEditPermission">
                                                     <input type="text" tabindex="6" class=" form-control AutoExpandTextarea-textarea inputPasswordEditPermission"
                                                     id="inputPasswordEditPermission" placeholder="" value="">
                                                     <label for="inputPasswordEditPermission" class="form-label mt-2 lable-bottom-AutoExpandTextarea">Mật khẩu</label>
                                                 </div> -->
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer modal-footer__Permission">
+                                                    <button type="button" class="btn btn-primary"
+                                                        id="btn-SavePermission">Lưu</button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer modal-footer__Permission">
-                                            <button type="button" class="btn btn-primary"
-                                                id="btn-SavePermission">Lưu</button>
-                                        </div>
                                     </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -98,21 +104,35 @@
                             <div class="mb-3">
                                 <input type="textarea" maxlength="255" class="form-control AutoExpandTextarea-textarea"
                                     id="inputCourseTitle" placeholder="Thêm tiêu đề..."
-                                    value="<%= course==null?"":course.titleCourse %>">
-                                <label for="inputCourseTitle"
-                                    class="form-label mt-2 lable-bottom-AutoExpandTextarea">TIÊU ĐỀ</label>
+                                    value="<%= course==null||course.titleCourse==undefined||course.titleCourse==" "?"":course.titleCourse %>">
+                                <label for="inputCourseTitle" class="form-label mt-2 lable-bottom-AutoExpandTextarea"
+                                    id="label-titleCourse">TIÊU ĐỀ</label>
                             </div>
                         </div>
                         <div class="CreateSetHeader-description">
                             <div class="mb-3">
                                 <input type="textarea" tabindex="6" class="form-control AutoExpandTextarea-textarea"
                                     id="inputCourseDescription" placeholder="Thêm mô tả..."
-                                    value="<%= course==null?"":course.description %>">
+                                    value="<%= course==null||course.description==undefined||course.description==" "?"":course.description %>">
                                 <label for="inputCourseDescription"
                                     class="form-label mt-2 lable-bottom-AutoExpandTextarea">MÔ TẢ</label>
                             </div>
                         </div>
                     </div>
+
+                    <!-- <div class="CreateSetHeader-Topic">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Chủ đề</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option selected>Choose...</option>
+                                <option value="1">Tiếng anh</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div> -->
                 </div>
                 <div class="CreateSetPage-content">
                     <div class="CreateSetPage-allTermWrap" id="allTermWrap">
@@ -128,7 +148,8 @@
                     </div>
 
                     <div class="CreateSetPage-footer">
-                        <button type="button" class="btn btn-primary btn-footer-CreateCourse">Tạo</button>
+                        <button type="button"
+                            class="btn btn-primary btn-footer-CreateCourse btn-createCourse">Tạo</button>
                     </div>
                 </div>
             </div>

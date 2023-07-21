@@ -11,7 +11,11 @@ var session = require("express-session");
 var homeRouter = require("./routes/home");
 var registerRouter = require("./routes/register");
 var loginRouter = require("./routes/login");
-var createCourse=require("./routes/create_course")
+var createCourseRouter=require("./routes/create_course")
+var logoutRouter=require("./routes/logout")
+var folderRouter=require("./routes/folders")
+var gradeRouter=require("./routes/grades")
+var courseRouter=require("./routes/courses")
 
 //default
 var indexRouter = require("./routes/index");
@@ -45,7 +49,11 @@ app.use(
 app.use("/", homeRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
-app.use("/create-course",createCourse)
+app.use("/create-course",createCourseRouter)
+app.use("/logout",logoutRouter)
+app.use("/:username/folders",folderRouter)
+app.use("/:username/classes",gradeRouter)
+app.use("/:username/courses",courseRouter)
 
 //default
 app.use("/index", indexRouter);

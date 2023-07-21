@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/stylesheets/bootstrap-4.0.0/bootstrap-4.0.0/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body class="body-editCourse" id="bodyEditCourse">
+    <div class="load-animation" id="load-animation">
+
+    </div>
+    <%- include('parts/header') %>
+        <main class="container container-EditCourse">
+            <div class="CreateSetPage">
+                <div class="CreateSetHeader" id="CreateSetHeaderID">
+                    <div class="CreateSetHeader-btnBack mb-3" id="btn-backToCourse">
+                        <i class="fa-solid fa-angle-left icon-angle-left"></i>
+                        <span class="CreateSetHeader-backText ml-2">Trở về học phần</span>
+                    </div>
+                    <div class="CreateSetHeader-heading">
+                        <h2 class="CreateSetHeader-headingText">Chỉnh sửa học phần</h2>
+                        <div class="CreateSetHeader-headingOption d-flex justify-content-center align-items-center">
+                            <button type="button"
+                                class="btn btn-info CreateSetHeader-btn-editCourse CreateSetHeader-btnOptionCourse pointer-btn mr-3 btn-editCourse">Lưu
+                            </button>
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="CreateSetHeader-permissions pointer-btn" data-toggle="modal"
+                                data-target="#permissionModalCenter">
+                                <i class="fa-solid fa-gear"></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade CreateSetHeader-modalPermissions" id="permissionModalCenter"
+                                tabindex="-1" role="dialog" aria-labelledby="permissionModalCenterTitle"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="modal-title" id="permissionModalLongTitle">Tùy chọn</h2>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body modal-bodyPermission">
+                                            <div class="modal-body__viewPermission">
+                                                <label for="selectViewPermission" class="labelSelectPermission">Hiển thị
+                                                    với</label>
+                                                <% if(course!=null){ %>
+                                                    <select class="custom-select" id="selectViewPermission">
+                                                        <option <%=course.permissionView==0?"selected":"" %>
+                                                            value="0">Chỉ
+                                                            tôi</option>
+                                                        <option <%=course.permissionView==1?"selected":"" %>
+                                                            value="1">Mọi
+                                                            người</option>
+                                                    </select>
+                                                    <% }else{ %>
+                                                        <select class="custom-select" id="selectViewPermission">
+                                                            <option selected value="0">Chỉ
+                                                                tôi</option>
+                                                            <option value="1">Mọi
+                                                                người</option>
+                                                        </select>
+                                                        <% } %>
+                                            </div>
+                                            <div class="modal-body__editPermission">
+                                                <label for="selectViewPermission" class="labelSelectPermission">Ai có
+                                                    thể sửa</label>
+                                                <select class="custom-select" id="selectEditPermission">
+                                                    <option selected value="0">Chỉ tôi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer modal-footer__Permission">
+                                            <button type="button" class="btn btn-primary"
+                                                id="btn-SavePermission">Lưu</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="CreateSetHeader-TitleCourse">
+                        <div class="CreateSetHeader-title">
+                            <div class="mb-3">
+                                <input type="textarea" maxlength="255" class="form-control AutoExpandTextarea-textarea"
+                                    id="inputCourseTitle" placeholder="Thêm tiêu đề..."
+                                    value="<%= course==null||course.titleCourse==undefined||course.titleCourse==" "?"":course.titleCourse %>">
+                                <label for="inputCourseTitle" class="form-label mt-2 lable-bottom-AutoExpandTextarea"
+                                    id="label-titleCourse">TIÊU ĐỀ</label>
+                            </div>
+                        </div>
+                        <div class="CreateSetHeader-description">
+                            <div class="mb-3">
+                                <input type="textarea" tabindex="6" class="form-control AutoExpandTextarea-textarea"
+                                    id="inputCourseDescription" placeholder="Thêm mô tả..."
+                                    value="<%= course==null||course.description==undefined||course.description==" "?"":course.description %>">
+                                <label for="inputCourseDescription"
+                                    class="form-label mt-2 lable-bottom-AutoExpandTextarea">MÔ TẢ</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="CreateSetPage-content">
+                    <div class="CreateSetPage-allTermWrap" id="allTermWrap">
+                        <%- include('parts/edit_course_term_part') %>
+                    </div>
+
+                    <div class="CreateSetPage-termRowWrap">
+                        <div class="TermContent-AddRow">
+                            <button aria-label="+ Thêm thẻ" class="TermContent-addRowButton" id="btnAddTerm"
+                                type="button"><span>+Thêm thẻ</span></button>
+                        </div>
+                    </div>
+
+                    <div class="CreateSetPage-footer">
+                        <button type="button"
+                            class="btn btn-primary btn-footer-editCourse btn-editCourse">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="/javascripts/edit_course.js"></script>
+</body>
+
+</html>

@@ -39,6 +39,6 @@ const schemas = {
 module.exports = {
     validateEmailExists,
     validateBody,
-    schemas
+    schemas,
 }
 
