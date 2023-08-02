@@ -20,7 +20,7 @@
                 <div class="setPageHeader-info setPageHeader-allCourse d-flex">
                     <div class="setPageHeader-avatar">
                         <img style="border-radius: 50%; width: 65px;" class="setPageHeader-avatar--circle"
-                            src="/images/84628273_176159830277856_972693363922829312_n.jpg" alt="">
+                            src="<%= userInfor.imageProfile!=" "?userInfor.imageProfile:"https://firebasestorage.googleapis.com/v0/b/image-edu-25269.appspot.com/o/files%2F84628273_176159830277856_972693363922829312_n.jpg?alt=media&token=1e381211-c8c8-49a1-a51d-1fedc82530b0" %>" alt="">
                     </div>
 
                     <div class="setPageHeader-createdBy align-self-end ml-1 ml-3">
@@ -46,7 +46,6 @@
                         <div class="dropdown-menu">
                             <button class="dropdown-item" type="button">Gần đây</button>
                             <button class="dropdown-item" type="button">Đã tạo</button>
-                            <button class="dropdown-item" type="button">Đã học</button>
                         </div>
                     </div>
 
@@ -54,7 +53,7 @@
                         <div class="mb-3">
                             <div class="input-group is-invalid">
                                 <input type="text" class="form-control" aria-describedby="validatedInputGroupPrepend"
-                                    required placeholder="Tìm kiếm khóa học">
+                                    required placeholder="Tìm kiếm thư mục">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="validatedInputGroupPrepend"><i
                                             class="fa-solid fa-magnifying-glass"></i></span>
@@ -85,7 +84,7 @@
                                         <div class="setPageHeader-avatar">
                                             <img style="border-radius: 50%; width: 20px;"
                                                 class="setPageHeader-avatar--circle mr-1"
-                                                src="/images+/84628273_176159830277856_972693363922829312_n.jpg" alt="">
+                                                src="<%= userInfor.imageProfile!=" "?userInfor.imageProfile:"https://firebasestorage.googleapis.com/v0/b/image-edu-25269.appspot.com/o/files%2F84628273_176159830277856_972693363922829312_n.jpg?alt=media&token=1e381211-c8c8-49a1-a51d-1fedc82530b0" %>" alt="">
                                         </div>
                                         <div class="info__createdBy-author">
                                             <%= userInfor.username %>
@@ -93,8 +92,10 @@
                                     </div>
                                 </div>
                                 <div class="activityFeed-dir__nameDir">
-                                    <i class="fa-regular fa-folder mr-1" style="color: #b3b4b7; font-size: 20px;"></i>
-                                    <a><%= folder.title %></a>
+                                    <a href="/<%= userInfor.username %>/folders/<%= folder._id %>/courses">
+                                        <i class="fa-regular fa-folder mr-1 folder-icon" style="color: #b3b4b7; font-size: 20px;"></i>
+                                        <h5><%= folder.title %></h5>
+                                    </a>
                                 </div>
                             </div>
                         <% }) %>

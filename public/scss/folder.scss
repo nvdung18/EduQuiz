@@ -1,0 +1,268 @@
+.body-folder {
+    .FolderPageHeader {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        .FolderPageHeader-info,
+        .FolderPageHeader-title {
+            display: flex;
+
+            span {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 1rem;
+                font-weight: 550;
+            }
+
+            .FolderPageHeader-userLink {
+                .UserLink-inner {
+                    .UserLink-avatar {
+                        img {
+                            width: 15%;
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .UserLink-username {
+                        text-decoration: none;
+                        color: inherit;
+
+                        span {
+                            display: inherit;
+                        }
+                    }
+                }
+            }
+        }
+
+        .FolderPageHeader-title {
+            i {
+                display: flex;
+                align-items: center;
+            }
+
+            h2 {
+                font-weight: 550;
+            }
+        }
+
+        .FolderPageHeader-action {
+            display: flex;
+            right: 0;
+            position: absolute;
+            top: 0;
+        }
+
+        .search-course {
+            width: 40%;
+            display: flex;
+            right: 0;
+            position: absolute;
+            top: 60%;
+
+            .wrap-search-course {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.setPageOption {
+    .setPageOption__btn-option {
+        font-size: 15px;
+        margin-right: 5px;
+        color: rgb(88, 99, 128);
+        border: 1px solid rgb(210, 200, 200);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+
+        &:hover {
+            transition: 0.2s;
+            background-color: rgb(224, 226, 233);
+        }
+
+        .dropdown-more-option {
+            width: 100%;
+            height: 100%;
+
+            .btn-toggle-dropdown {
+                color: rgb(88, 99, 128);
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: white;
+                width: 100%;
+                height: 100%;
+
+                &::after {
+                    display: none !important;
+                }
+
+                &:hover {
+                    transition: 0.2s;
+                    background-color: #e0e2e9;
+                }
+
+                &:focus {
+                    outline: none !important;
+                    box-shadow: 0;
+                }
+            }
+
+            .dropdown-menu-moreOption {
+                top: 5px !important;
+                transform: translate3d(-243px, 38px, 0px) !important;
+                border: none;
+                box-shadow: 0 0.25rem 1rem 0 #2e385614;
+
+                .dropdown-item-option {
+                    padding: 10px 15px 10px 15px;
+                    color: #586380;
+                    font-weight: 550;
+                }
+            }
+        }
+    }
+}
+
+.modal-addCourse {
+    .modal-content-addCourse {
+        width: 600px;
+    }
+
+    .modal-header-addCourse {
+        background-color: #4255ff;
+        padding: 35px;
+
+        .modal-title-addCourse {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .close-modal-addCourse {
+            position: relative;
+            top: 5px;
+
+        }
+    }
+
+    .modal-body-addCourse {
+        padding: 35px;
+        background-color: #f6f7fb;
+
+        .DashboardToggleCards {
+            .toggle-list {
+                .ToggleInclusionCard {
+                    display: flex;
+                    justify-content: space-between;
+                    background-color: white;
+                    padding: 20px;
+                    margin-top: 10px;
+                    height: 80px;
+                    position: relative;
+
+                    .ToggleInclusionCard-heading {
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+
+                        h4 {
+                            font-weight: 600;
+                            font-size: 1.4rem;
+                            margin-bottom: 0px;
+                        }
+                    }
+
+                    .ToggleInclusionCard-toggle {
+                        align-items: center;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        height: 100%;
+                        width: 13%;
+                        border: 2px solid rgb(217, 221, 232);
+                        border-radius: 4px;
+                        cursor: pointer;
+                        position: relative;
+                        z-index: 1;
+
+                        i {
+                            display: flex;
+                            justify-content: center;
+                        }
+
+                        .UISwitch-input {
+                            bottom: 0;
+                            cursor: inherit;
+                            height: 100%;
+                            left: 0;
+                            opacity: 0;
+                            position: absolute;
+                            right: 0;
+                            top: 0;
+                            width: 100%;
+                            z-index: 2;
+                        }
+                    }
+
+                    .icon-plus::before {
+                        content: "\f067";
+                        /* Mã Unicode của icon "plus" trong Font Awesome */
+                        font-family: "Font Awesome 5 Free";
+                        /* Tên font chứa icon */
+                    }
+
+                    .icon-minus::before {
+                        content: "\f146";
+                        /* Mã Unicode của icon "plus" trong Font Awesome */
+                        font-family: "Font Awesome 5 Free";
+                        /* Tên font chứa icon */
+                    }
+                }
+
+                .ToggleInclusionCard--orange {
+                    background-color: rgb(255, 205, 31);
+                }
+            }
+        }
+    }
+}
+
+.DashboradPage-main {
+    .db-m__course-row {
+        .setCard-link-flashcard{
+            text-decoration: none;
+            .setCard__title-course:hover{
+                color: #ffcd1f;
+                transition: 0.3s;
+            }
+        }
+        .setCard-text__footer {
+            position: relative;
+        }
+
+        .setCard__option {
+            position: absolute;
+            right: 0px;
+
+            .delete-option {
+                border: none;
+                background-color: white;
+                cursor: pointer;
+                &:hover{
+                    transition: 0.3s;
+                    color: #ffcd1f;
+                }
+            }
+        }
+    }
+}

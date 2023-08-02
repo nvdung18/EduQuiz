@@ -3,14 +3,16 @@ var Joi=require("joi")
 const Joigoose = require("joigoose")(mongoose, { convert: false });
 const Schema = mongoose.Schema
 
-const FolderSchema = new Schema({
+const joiFolderSchema = Joi.object().keys({
     title: Joi.string(),
     description: Joi.string(),
-    userID: String,
+    userID: Joi.string(),
     courses: Joi.array().items(
-        String
+        Joi.string()
     ).default([]),
-}, {
+})
+
+const FolderSchema = new Schema(Joigoose.convert(joiFolderSchema), {
     collection: 'folder'
 })
 
@@ -18,8 +20,11 @@ const FolderSchema = new Schema({
 FolderSchema.path('userID', Schema.Types.ObjectId)
 FolderSchema.path('userID').ref('user')
 
-FolderSchema.path('courses', Schema.Types.ObjectId)
-FolderSchema.path('courses').ref('course')
+const newFolderOptions = {
+    type: [{ type: Schema.Types.ObjectId }],
+    ref: 'course',
+};
+FolderSchema.path('courses', newFolderOptions)
 
 const FolderModel = mongoose.model('folder', FolderSchema)
 

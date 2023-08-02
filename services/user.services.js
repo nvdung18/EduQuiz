@@ -44,13 +44,25 @@ const checkIsYourCourse = async (courseID, userID) => {
   }
 }
 
-const getUserBasicInfo=async(userID)=>{
+const getUserBasicInfo = async (userID) => {
   try {
     return await UserModel.findById(userID).select("_id username imageProfile")
   } catch (error) {
     throw error
   }
 }
+
+const deleteUserCourse = async (courseIdToRemove, userID) => {
+  try {
+    const result = await UserModel.updateOne(
+      { _id: userID },
+      { $pull: { course: courseIdToRemove } }
+    );
+  } catch (error) {
+    throw error
+  }
+}
+
 
 module.exports = {
   createUser,
@@ -61,4 +73,5 @@ module.exports = {
   getUserCourses,
   checkIsYourCourse,
   getUserBasicInfo,
+  deleteUserCourse,
 };

@@ -162,13 +162,79 @@ body {
           margin-right: 10px;
           border: none; }
 
-.site .page .DashboardLayout {
-  margin-top: 20px;
-  display: flex; }
-  .site .page .DashboardLayout .dash-series {
+.site .page {
+  margin-bottom: 20px; }
+  .site .page .DashboardLayout {
+    margin-top: 20px;
+    display: flex; }
+    .site .page .DashboardLayout .dash-series {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; }
+
+.setCard-content {
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 0.5rem 0 #2e385614;
+  border-bottom: 0.3125rem solid #fff0;
+  transition: all 0.12s cubic-bezier(0.47, 0, 0.745, 0.715); }
+  .setCard-content:hover {
+    border-bottom-color: #dbdfff; }
+  .setCard-content .setCard .setCard-text {
     display: flex;
-    flex-direction: column;
-    justify-content: center; }
+    justify-content: space-between;
+    flex-direction: column; }
+    .setCard-content .setCard .setCard-text .setCard-text__header .setCard__title-course {
+      font-weight: 600;
+      color: #2e3856; }
+    .setCard-content .setCard .setCard-text .setCard-text__header .setCard__numOfTerms {
+      font-size: 0.9rem;
+      color: #586380;
+      font-weight: 550; }
+    .setCard-content .setCard .setCard-text .setCard-text__footer {
+      margin-top: 40px;
+      display: flex;
+      width: 100%;
+      align-items: center; }
+      .setCard-content .setCard .setCard-text .setCard-text__footer .setCard__userAvatar {
+        width: 21.94px;
+        height: 21.94px;
+        margin-right: 10px; }
+        .setCard-content .setCard .setCard-text .setCard-text__footer .setCard__userAvatar img {
+          border-radius: 50%;
+          width: 100%;
+          height: 100%;
+          object-fit: cover; }
+      .setCard-content .setCard .setCard-text .setCard-text__footer .setCard__username a {
+        text-decoration: none;
+        color: black;
+        font-weight: 600; }
+
+/* Căn giữa các phần tử trong .td-content */
+.td-wrap {
+  vertical-align: middle !important; }
+
+.td-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-weight: 550; }
+
+.td-content abbr {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-decoration: none; }
+
+/* Đảm bảo img không bị che khuất bởi abbr */
+.td-content img {
+  position: relative;
+  z-index: 1; }
+
+.th--align-center {
+  text-align: center !important; }
 
 .divider:after,
 .divider:before {
@@ -180,20 +246,23 @@ body {
 .body-login {
   background-color: #efefef; }
 
-.main-topic {
+.main-search {
   max-width: 67.5rem;
   min-height: 32rem;
   margin: auto auto 2.5rem;
   padding: 0 1rem; }
-  .main-topic .main-topic__top {
-    background-color: white !important; }
-    .main-topic .main-topic__top .top__title-topic {
-      display: flex;
-      margin-bottom: 20px; }
-    .main-topic .main-topic__top .top__topic-details .top__topic-details--pointer {
-      cursor: pointer; }
-  .main-topic .main-topic__bottom {
+  .main-search .main-search__top .top__title-topic {
+    display: flex;
+    margin-bottom: 20px; }
+  .main-search .main-search__middle {
     margin-top: 15px; }
+    .main-search .main-search__middle .dashboard-main__search .breadcrumb-numOfResults {
+      padding-left: 0px !important;
+      padding-top: 0px; }
+  .main-search .main-search__bottom {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; }
 
 .body-course {
   background-color: #f6f7fb;
@@ -589,8 +658,19 @@ body {
   .DashboardAllDir-activityFeed .activityFeed-allDir .activityFeed-dir .activityFeed-dir__nameDir {
     margin-top: 5px; }
     .DashboardAllDir-activityFeed .activityFeed-allDir .activityFeed-dir .activityFeed-dir__nameDir a {
-      font-size: 20px;
-      font-weight: bold; }
+      display: flex;
+      color: #2e3856; }
+      .DashboardAllDir-activityFeed .activityFeed-allDir .activityFeed-dir .activityFeed-dir__nameDir a h5 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 0; }
+      .DashboardAllDir-activityFeed .activityFeed-allDir .activityFeed-dir .activityFeed-dir__nameDir a .folder-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; }
 
 .body-allClass {
   background-color: #f6f7fb;
@@ -1041,5 +1121,222 @@ body {
       color: white;
       font-weight: 600;
       background-color: #4255ff; }
+
+.body-folder .FolderPageHeader {
+  position: relative;
+  display: flex;
+  flex-direction: column; }
+  .body-folder .FolderPageHeader .FolderPageHeader-info,
+  .body-folder .FolderPageHeader .FolderPageHeader-title {
+    display: flex; }
+    .body-folder .FolderPageHeader .FolderPageHeader-info span,
+    .body-folder .FolderPageHeader .FolderPageHeader-title span {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 550; }
+    .body-folder .FolderPageHeader .FolderPageHeader-info .FolderPageHeader-userLink .UserLink-inner .UserLink-avatar img,
+    .body-folder .FolderPageHeader .FolderPageHeader-title .FolderPageHeader-userLink .UserLink-inner .UserLink-avatar img {
+      width: 15%;
+      border-radius: 50%; }
+    .body-folder .FolderPageHeader .FolderPageHeader-info .FolderPageHeader-userLink .UserLink-inner .UserLink-username,
+    .body-folder .FolderPageHeader .FolderPageHeader-title .FolderPageHeader-userLink .UserLink-inner .UserLink-username {
+      text-decoration: none;
+      color: inherit; }
+      .body-folder .FolderPageHeader .FolderPageHeader-info .FolderPageHeader-userLink .UserLink-inner .UserLink-username span,
+      .body-folder .FolderPageHeader .FolderPageHeader-title .FolderPageHeader-userLink .UserLink-inner .UserLink-username span {
+        display: inherit; }
+  .body-folder .FolderPageHeader .FolderPageHeader-title i {
+    display: flex;
+    align-items: center; }
+  .body-folder .FolderPageHeader .FolderPageHeader-title h2 {
+    font-weight: 550; }
+  .body-folder .FolderPageHeader .FolderPageHeader-action {
+    display: flex;
+    right: 0;
+    position: absolute;
+    top: 0; }
+  .body-folder .FolderPageHeader .search-course {
+    width: 40%;
+    display: flex;
+    right: 0;
+    position: absolute;
+    top: 60%; }
+    .body-folder .FolderPageHeader .search-course .wrap-search-course {
+      width: 100%; }
+
+.setPageOption .setPageOption__btn-option {
+  font-size: 15px;
+  margin-right: 5px;
+  color: #586380;
+  border: 1px solid #d2c8c8;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white; }
+  .setPageOption .setPageOption__btn-option:hover {
+    transition: 0.2s;
+    background-color: #e0e2e9; }
+  .setPageOption .setPageOption__btn-option .dropdown-more-option {
+    width: 100%;
+    height: 100%; }
+    .setPageOption .setPageOption__btn-option .dropdown-more-option .btn-toggle-dropdown {
+      color: #586380;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      width: 100%;
+      height: 100%; }
+      .setPageOption .setPageOption__btn-option .dropdown-more-option .btn-toggle-dropdown::after {
+        display: none !important; }
+      .setPageOption .setPageOption__btn-option .dropdown-more-option .btn-toggle-dropdown:hover {
+        transition: 0.2s;
+        background-color: #e0e2e9; }
+      .setPageOption .setPageOption__btn-option .dropdown-more-option .btn-toggle-dropdown:focus {
+        outline: none !important;
+        box-shadow: 0; }
+    .setPageOption .setPageOption__btn-option .dropdown-more-option .dropdown-menu-moreOption {
+      top: 5px !important;
+      transform: translate3d(-243px, 38px, 0px) !important;
+      border: none;
+      box-shadow: 0 0.25rem 1rem 0 #2e385614; }
+      .setPageOption .setPageOption__btn-option .dropdown-more-option .dropdown-menu-moreOption .dropdown-item-option {
+        padding: 10px 15px 10px 15px;
+        color: #586380;
+        font-weight: 550; }
+
+.modal-addCourse .modal-content-addCourse {
+  width: 600px; }
+.modal-addCourse .modal-header-addCourse {
+  background-color: #4255ff;
+  padding: 35px; }
+  .modal-addCourse .modal-header-addCourse .modal-title-addCourse {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: white; }
+  .modal-addCourse .modal-header-addCourse .close-modal-addCourse {
+    position: relative;
+    top: 5px; }
+.modal-addCourse .modal-body-addCourse {
+  padding: 35px;
+  background-color: #f6f7fb; }
+  .modal-addCourse .modal-body-addCourse .DashboardToggleCards .toggle-list .ToggleInclusionCard {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20px;
+    margin-top: 10px;
+    height: 80px;
+    position: relative; }
+    .modal-addCourse .modal-body-addCourse .DashboardToggleCards .toggle-list .ToggleInclusionCard .ToggleInclusionCard-heading {
+      display: flex;
+      justify-content: center;
+      flex-direction: column; }
+      .modal-addCourse .modal-body-addCourse .DashboardToggleCards .toggle-list .ToggleInclusionCard .ToggleInclusionCard-heading h4 {
+        font-weight: 600;
+        font-size: 1.4rem;
+        margin-bottom: 0px; }
+    .modal-addCourse .modal-body-addCourse .DashboardToggleCards .toggle-list .ToggleInclusionCard .ToggleInclusionCard-toggle {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      width: 13%;
+      border: 2px solid #d9dde8;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      z-index: 1; }
+      .modal-addCourse .modal-body-addCourse .DashboardToggleCards .toggle-list .ToggleInclusionCard .ToggleInclusionCard-toggle i {
+        display: flex;
+        justify-content: center; }
+      .modal-addCourse .modal-body-addCourse .DashboardToggleCards .toggle-list .ToggleInclusionCard .ToggleInclusionCard-toggle .UISwitch-input {
+        bottom: 0;
+        cursor: inherit;
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        z-index: 2; }
+    .modal-addCourse .modal-body-addCourse .DashboardToggleCards .toggle-list .ToggleInclusionCard .icon-plus::before {
+      content: "\f067";
+      /* Mã Unicode của icon "plus" trong Font Awesome */
+      font-family: "Font Awesome 5 Free";
+      /* Tên font chứa icon */ }
+    .modal-addCourse .modal-body-addCourse .DashboardToggleCards .toggle-list .ToggleInclusionCard .icon-minus::before {
+      content: "\f146";
+      /* Mã Unicode của icon "plus" trong Font Awesome */
+      font-family: "Font Awesome 5 Free";
+      /* Tên font chứa icon */ }
+  .modal-addCourse .modal-body-addCourse .DashboardToggleCards .toggle-list .ToggleInclusionCard--orange {
+    background-color: #ffcd1f; }
+
+.DashboradPage-main .db-m__course-row .setCard-link-flashcard {
+  text-decoration: none; }
+  .DashboradPage-main .db-m__course-row .setCard-link-flashcard .setCard__title-course:hover {
+    color: #ffcd1f;
+    transition: 0.3s; }
+.DashboradPage-main .db-m__course-row .setCard-text__footer {
+  position: relative; }
+.DashboradPage-main .db-m__course-row .setCard__option {
+  position: absolute;
+  right: 0px; }
+  .DashboradPage-main .db-m__course-row .setCard__option .delete-option {
+    border: none;
+    background-color: white;
+    cursor: pointer; }
+    .DashboradPage-main .db-m__course-row .setCard__option .delete-option:hover {
+      transition: 0.3s;
+      color: #ffcd1f; }
+
+.body-passwordCourse {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0; }
+
+.dashboard-password {
+  text-align: center; }
+  .dashboard-password .password-wrap {
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff; }
+    .dashboard-password .password-wrap .form-passwordCourse {
+      display: flex;
+      flex-direction: column;
+      align-items: center; }
+      .dashboard-password .password-wrap .form-passwordCourse input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px; }
+      .dashboard-password .password-wrap .form-passwordCourse button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer; }
+    .dashboard-password .password-wrap .alert {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #dc3545;
+      border-radius: 5px;
+      background-color: #f8d7da;
+      color: #721c24; }
 
 /*# sourceMappingURL=style.css.map */

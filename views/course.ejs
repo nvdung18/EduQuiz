@@ -138,9 +138,11 @@
                     </div>
 
                     <div class="setPageOption d-flex">
-                        <div class="setPageOption__btn-option pointer-btn btn-edit-course" title="Chỉnh sửa">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
+                        <% if(isYourCourse){ %>
+                            <div class="setPageOption__btn-option pointer-btn btn-edit-course" title="Chỉnh sửa">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                        <% } %>
                         <div class="setPageOption__btn-option pointer-btn" title="Chia sẻ">
                             <i class="fa-solid fa-share-from-square"></i>
                         </div>
@@ -154,10 +156,12 @@
                                         <i class="fa-solid fa-circle-plus"></i>
                                         <span>Thêm vào lớp học hoặc thư mục</span>
                                     </a>
-                                    <a class="dropdown-item dropdown-item-option" id="btn-delete-course">
-                                        <i class="fa-solid fa-trash"></i>
-                                        <span>Xóa</span>
-                                    </a>
+                                    <% if(isYourCourse){ %>
+                                        <a class="dropdown-item dropdown-item-option" id="btn-delete-course">
+                                            <i class="fa-solid fa-trash"></i>
+                                            <span>Xóa</span>
+                                        </a>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -206,9 +210,11 @@
                                         <div class="setPageOption__btn-option pointer-btn btn-speak">
                                             <i class="fa-solid fa-volume-high"></i>
                                         </div>
-                                        <div class="setPageOption__btn-option pointer-btn btn-edit-card">
-                                            <i class="fa-solid fa-pencil"></i>
-                                        </div>
+                                        <% if(isYourCourse){ %>
+                                            <div class="setPageOption__btn-option pointer-btn btn-edit-card">
+                                                <i class="fa-solid fa-pencil"></i>
+                                            </div>
+                                        <% } %>
                                     </div>
                                 </div>
                             <% }) %>

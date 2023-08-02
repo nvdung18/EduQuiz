@@ -56,29 +56,13 @@
               </div>
             </div>
           </div>
-          <!-- <div class="leftItem-dropdownTopic">
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle btn-whiteColor btn-center fontNavigationItem"
-                type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Chủ đề
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Nghệ thuật và nhân văn</a>
-                <a class="dropdown-item" href="#">Ngôn ngữ</a>
-                <a class="dropdown-item" href="#">Toán học</a>
-                <a class="dropdown-item" href="#">Khoa học</a>
-                <a class="dropdown-item" href="#">Thể thao</a>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
       <div class="TopNavigation-contentMiddle col-5">
         <nav class="navbar navbar-light bg-light bg-white">
-          <form class="form-inline width100">
+          <form class="form-inline width100" method="get" action="/search">
             <input class="form-control mr-sm-2 ctMiddle-searchForm" type="search" placeholder="Học phần"
-              aria-label="Search" />
-            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button> -->
+              aria-label="Search" name="query" />
           </form>
         </nav>
       </div>
@@ -160,13 +144,12 @@
                     Cài đặt
                   </button>
                 </div>
-                <div class="dropdown-item dropdown-item__underline DropdownCreateOption--nonePadding-Background">
-                  <!-- Button trigger modal -->
+                <!-- <div class="dropdown-item dropdown-item__underline DropdownCreateOption--nonePadding-Background">
                   <button type="button" class="btn btn-primary DropdownCreateOption-btnOption">
                     <i class="fa-regular fa-moon mr-2"></i>
                     Chế độ tối
                   </button>
-                </div>
+                </div> -->
                 <div class="dropdown-item DropdownCreateOption--nonePadding-Background">
                   <!-- Button trigger modal -->
                   <button type="button" id="btn-logout"

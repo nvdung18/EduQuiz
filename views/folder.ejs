@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/stylesheets/bootstrap-4.0.0/bootstrap-4.0.0/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body class="body-folder">
+    <%- include('parts/header') %>
+        <main class="container folder-container pt-4 pb-4">
+            <div class="DashboradPage">
+                <div class="DashboradPage-header mb-5">
+                    <div class="FolderPageHeader">
+                        <div class="FolderPageHeader-info mb-3">
+                            <span class=""><%= folderCourses.courses==undefined?0:folderCourses.courses.length %> học phần</span>
+                            <span class="ml-5">Tạo bởi</span>
+                            <div class="FolderPageHeader-userLink ml-2">
+                                <div class="UserLink-inner">
+                                    <a class="UserLink-avatar" href="#">
+                                        <img src="<%= userInfor.imageProfile==" "?"https://firebasestorage.googleapis.com/v0/b/image-edu-25269.appspot.com/o/files%2F84628273_176159830277856_972693363922829312_n.jpg?alt=media&token=1e381211-c8c8-49a1-a51d-1fedc82530b0":userInfor.imageProfile %>"
+                                            alt="">
+                                    </a>
+                                    <a class="UserLink-username" href="#">
+                                        <span><%= userInfor.username %></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="FolderPageHeader-title">
+                            <i class="fa-regular fa-folder mr-1 folder-icon"
+                                style="color: #b3b4b7; font-size: 35px;"></i>
+                            <h2 class="mb-0 ml-2"><%= folderCourses.title %></h2>
+                        </div>
+                        <% if (isYourFolder) { %>
+                            <div class="FolderPageHeader-action setPageOption">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary setPageOption__btn-option pointer-btn"
+                                    data-toggle="modal" data-target="#addCourseModal" title="Thêm học phần">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary setPageOption__btn-option pointer-btn"
+                                        data-toggle="modal" data-target=".DropdownEditDir-modal-lg" title="Sửa Thư mực">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </button>
+                                <div class="setPageOption__btn-option pointer-btn" title="Xóa">
+                                    <i class="fa-solid fa-trash"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="modal fade DropdownEditDir-modal-lg DropdownEdit-modal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title DropdownEdit-Modal-title" id="exampleModalLongTitle">Sửa thư mục</h2>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" method="post">
+                                            <div class="form-group">
+                                                <label for="recipient-name" class="col-form-label">Nhập tiêu đề</label>
+                                                <input type="text" class="form-control AutoExpandTextarea-textarea" id="recipient-name" name="titleFolder" value="<%= folderCourses.title %>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Nhập mô tả tùy chọn</label>
+                                                <textarea class="form-control AutoExpandTextarea-textarea" id="message-text" name="descriptionFolder"><%= folderCourses.description %></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                        <div class="search-course">
+                            <div class="mb-3 wrap-search-course">
+                                <div class="input-group is-invalid">
+                                    <input type="text" class="form-control" aria-describedby="validatedInputGroupPrepend"
+                                        required placeholder="Tìm kiếm khóa học">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="validatedInputGroupPrepend"><i
+                                                class="fa-solid fa-magnifying-glass"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <% if (isYourFolder) { %>
+                    <!-- Modal -->
+                    <div class="modal fade modal-addCourse" id="addCourseModal" tabindex="-1" role="dialog"
+                        aria-labelledby="addCourseModalTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content modal-content-addCourse">
+                                <div class="modal-header modal-header-addCourse">
+                                    <h5 class="modal-title modal-title-addCourse" id="addCourseModalTitle">Thêm học phần</h5>
+                                    <button type="button" class="close close-modal-addCourse" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body modal-body-addCourse">
+                                    <div class="DashboardToggleCards">
+                                        <div class="toggle-list">
+                                            <%# for the courses contained in the folder  %>
+                                            <% for( let i=0; i < folderCourses.courses.length; i++ ) { %>
+                                                <% if (folderCourses.courses[i]!=null) { %>
+                                                    <div class="ToggleInclusionCard">
+                                                        <div class="ToggleInclusionCard-heading">
+                                                            <h4 class="UIHeading UIHeading--four"><%= folderCourses.courses[i].titleCourse %></h4>
+                                                        </div>
+                                                        <div class="ToggleInclusionCard-toggle ToggleInclusionCard--orange icon-minus">
+                                                            <input class="UISwitch-input" type="checkbox" value="<%= folderCourses.courses[i]._id %>" checked="">
+                                                            <!-- <i class="fa-solid fa-minus"></i> -->
+                                                        </div>
+                                                    </div>
+                                                <% } %>
+                                            <% } %>
+                                            <%# for courses not yet in the folder %>
+                                            <% for( let i=0; i < coursesNotInFolder.length; i++ ) { %>
+                                                <% if (coursesNotInFolder[i]!=null) { %>
+                                                    <div class="ToggleInclusionCard">
+                                                        <div class="ToggleInclusionCard-heading">
+                                                            <h4 class="UIHeading UIHeading--four"><%= coursesNotInFolder[i].titleCourse %></h4>
+                                                        </div>
+                                                        <div class="ToggleInclusionCard-toggle icon-plus">
+                                                            <input class="UISwitch-input" type="checkbox" value="<%=coursesNotInFolder[i]._id %>" >
+                                                            <!-- <i class="fa-solid fa-plus"></i> -->
+                                                        </div>
+                                                    </div>
+                                                <% } %>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+
+                <div class="DashboradPage-main">
+                    <div class="course-container" id="courses-container">
+                        <% for( let i=0; i < numberOfRows; i++ ) { %>
+                            <div class="db-m__course-row row d-flex justify-content-start mt-3">
+                                <% for( let j=i*2; j < (i+1)*2; j++ ) { %>
+                                    <% let course=folderCourses.courses[j] %>
+                                    <% if(course&&course.permissionView!=0 ||course&&course.permissionView==0&&isYourFolder){ %>
+                                        <div class="col-sm-6">
+                                            <div class="card setCard-content">
+                                                <div class="card-body setCard">
+                                                    <div class="setCard-text">
+                                                        <a class="setCard-link-flashcard"
+                                                            href="/<%= userInfor.username %>/courses/<%= course._id %>/flash-card">
+                                                            <div class="setCard-text__header">
+                                                                <h4 class="card-title setCard__title-course mb-2">
+                                                                    <%= course.titleCourse %>
+                                                                </h4>
+                                                                <div class="setCard__numOfTerms">
+                                                                    <%= course.cards.length %><span> Thuật ngữ</span>
+                                                                    <% if (course.permissionView==0||course.permissionView==2) { %>
+                                                                        <i class="fa-solid fa-lock"></i>
+                                                                    <% } %>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                        <div class="setCard-text__footer">
+                                                            <div class="setCard__userAvatar">
+                                                                <a href="#">
+                                                                    <img src="
+                                                                        <%= userInfor.imageProfile==" "?"https://firebasestorage.googleapis.com/v0/b/image-edu-25269.appspot.com/o/files%2F84628273_176159830277856_972693363922829312_n.jpg?alt=media&token=1e381211-c8c8-49a1-a51d-1fedc82530b0":userInfor.imageProfile %>"
+                                                                        alt="">
+                                                                </a>
+                                                            </div>
+                                                            <div class="setCard__username ">
+                                                                <a href="">
+                                                                    <%= userInfor.username %>
+                                                                </a>
+                                                            </div>
+                                                            <% if (isYourFolder) { %>
+                                                                <div class="setCard__option">
+                                                                    <button class="delete-option option--borderless" value="<%= course._id %>">
+                                                                        <i class="fa-solid fa-trash"></i>
+                                                                    </button>
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="/javascripts/folder.js"></script>
+</body>
+
+</html>

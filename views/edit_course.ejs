@@ -45,12 +45,12 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h2 class="modal-title" id="permissionModalLongTitle">Tùy chọn</h2>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-permissionModal">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body modal-bodyPermission">
-                                            <div class="modal-body__viewPermission">
+                                            <div class="modal-body__viewPermission" id="modal-body__viewPermission">
                                                 <label for="selectViewPermission" class="labelSelectPermission">Hiển thị
                                                     với</label>
                                                 <% if(course!=null){ %>
@@ -61,15 +61,25 @@
                                                         <option <%=course.permissionView==1?"selected":"" %>
                                                             value="1">Mọi
                                                             người</option>
+                                                        <option id="select-withPassword" <%=course.permissionView==2?"selected":"" %>
+                                                            value="2">Người có mật khẩu</option>
                                                     </select>
+                                                    <% if(course.permissionView==2){ %>
+                                                        <div id="selectedPassword-wrap" class="mt-3">
+                                                            <div class="input-group mb-3">
+                                                                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Nhập mật khẩu" id="selected-inputPassword" value="<%= course.password==" "?"":course.password %>">
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
                                                     <% }else{ %>
                                                         <select class="custom-select" id="selectViewPermission">
                                                             <option selected value="0">Chỉ
                                                                 tôi</option>
                                                             <option value="1">Mọi
                                                                 người</option>
+                                                            <option id="select-withPassword" value="2">Người có mật khẩu</option>
                                                         </select>
-                                                        <% } %>
+                                                    <% } %>
                                             </div>
                                             <div class="modal-body__editPermission">
                                                 <label for="selectViewPermission" class="labelSelectPermission">Ai có
@@ -123,8 +133,7 @@
                     </div>
 
                     <div class="CreateSetPage-footer">
-                        <button type="button"
-                            class="btn btn-primary btn-footer-editCourse btn-editCourse">Lưu</button>
+                        <button type="button" class="btn btn-primary btn-footer-editCourse btn-editCourse">Lưu</button>
                     </div>
                 </div>
             </div>

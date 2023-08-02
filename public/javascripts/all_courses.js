@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function setDataCourseBeCreated(allCourses) {
         let content = ``
         allCourses.forEach((course) => {
+            
             content += `
                     <div class="activityFeed-course pointer-btn">
                         <div class="activityFeed-course__info ">
@@ -75,27 +76,30 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function setDataCourseAccessed(coursesAccessed) {
         let allCourseContent=``
+        console.log(coursesAccessed);
         coursesAccessed.forEach((accessed) => {
             accessed.courses.reverse().forEach((course) => {
-                allCourseContent += `
-                        <div class="activityFeed-course pointer-btn">
-                            <div class="activityFeed-course__info ">
-                                <span class="activityFeed__info-numsOfTerms">${course.cards != null ? course.cards.length : 0} Thuật ngữ</span>
-                                <div class="activityFeed__info-createdBy d-flex">
-                                    <div class="setPageHeader-avatar">
-                                        <img style="border-radius: 50%; width: 20px;" class="setPageHeader-avatar--circle mr-1"
-                                            src="${course.owner.imageProfile != " " ? course.owner.imageProfile : "/images/84628273_176159830277856_972693363922829312_n.jpg"}" alt="">
-                                    </div>
-                                    <div class="info__createdBy-author">
-                                        ${course.owner.username}
+                if(course.owner){
+                    allCourseContent += `
+                            <div class="activityFeed-course pointer-btn">
+                                <div class="activityFeed-course__info ">
+                                    <span class="activityFeed__info-numsOfTerms">${course.cards != null ? course.cards.length : 0} Thuật ngữ</span>
+                                    <div class="activityFeed__info-createdBy d-flex">
+                                        <div class="setPageHeader-avatar">
+                                            <img style="border-radius: 50%; width: 20px;" class="setPageHeader-avatar--circle mr-1"
+                                                src="${course.owner.imageProfile != " " ? course.owner.imageProfile : "/images/84628273_176159830277856_972693363922829312_n.jpg"}" alt="">
+                                        </div>
+                                        <div class="info__createdBy-author">
+                                            ${course.owner.username}
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="activityFeed-course__nameCourse">
+                                    <a href="/${course.owner.username + "/courses/" + course._id}/flash-card"  style="text-decoration: none;">${course.titleCourse}</a>
+                                </div>
                             </div>
-                            <div class="activityFeed-course__nameCourse">
-                                <a href="/${course.owner.username + "/courses/" + course._id}/flash-card"  style="text-decoration: none;">${course.titleCourse}</a>
-                            </div>
-                        </div>
-                        `
+                            `
+                }
             })
             // console.log(wrapFeed)
             // console.log(accessed);

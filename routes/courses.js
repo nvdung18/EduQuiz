@@ -18,10 +18,13 @@ router.route("/")
 router.route("/filter/:typeFilter")
     .get(courseController.getCoursesByFilter)
 
+router.route("/:courseID/password")
+    .get(courseController.renderPasswordPage)
+    .post(verify.verifyPasswordCourse,courseController.renderCourseByPassword)
 //// for course
 router.all('/:courseID/*',
-    verify.verifyCourseIsYours, 
-    activityRecording.recordCourseAccessed, 
+    verify.verifyCourseIsYours,
+    activityRecording.recordCourseAccessed,
     activityRecording.recordLearningChain)
 
 router.route("/:courseID/flash-card")
@@ -33,22 +36,22 @@ router.route("/:courseID/mix-cards")
 router.route("/:courseID/cards")
     .get(courseController.getCard)
 
-router.route("/:courseID/edit-card")
+router.route("/:courseID/edit-card") //
     .put(courseController.updateCard)
 
 router.route("/:courseID/alphabet-order-card")
     .get(courseController.getAlphabetOrderCard)
 
-router.route("/:courseID/edit-course")
+router.route("/:courseID/edit-course") //
     .get(courseController.getDataToEditCourse)
     .put(courseController.autoSaveCourse)
 
-router.post('/:courseID/edit-course/upload-image', upload.single("filename"), uploadImageController.uploadImgIntoFirebase)
+router.post('/:courseID/edit-course/upload-image', upload.single("filename"), uploadImageController.uploadImgIntoFirebase)//
 
-router.route("/:courseID/edit-course/save-course")
+router.route("/:courseID/edit-course/save-course")//
     .put(courseController.updateCourse)
 
-router.route("/:courseID/delete-course")
+router.route("/:courseID/delete-course")//
     .delete(courseController.deleteCourse)
 
 module.exports = router

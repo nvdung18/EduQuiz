@@ -16,6 +16,7 @@ var logoutRouter=require("./routes/logout")
 var folderRouter=require("./routes/folders")
 var gradeRouter=require("./routes/grades")
 var courseRouter=require("./routes/courses")
+var searchRouter=require("./routes/search")
 
 //default
 var indexRouter = require("./routes/index");
@@ -54,6 +55,7 @@ app.use("/logout",logoutRouter)
 app.use("/:username/folders",folderRouter)
 app.use("/:username/classes",gradeRouter)
 app.use("/:username/courses",courseRouter)
+app.use("/search",searchRouter)
 
 //default
 app.use("/index", indexRouter);

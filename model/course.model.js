@@ -20,6 +20,7 @@ const joiCourseSchema = Joi.object().keys({
     ),
     created: Joi.date().default(Date.now),
     updated: Joi.date().default(Date.now),
+    password: Joi.string(),
     owner: Joi.objectId().required(),
     autoSave: Joi.boolean().default(true)
 });

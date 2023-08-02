@@ -1,12 +1,16 @@
 const CourseModel = require("../model/course.model")
 const _ = require('lodash');
 const { ObjectId } = require('mongoose').Types;
-const UserServices = require("../services/user.services")
+const UserServices = require("../services/user.services");
+const UserModel = require("../model/user.model");
+const { query } = require("express");
 
 //////////////////
 const AUTO_SAVE = "auto-save"
 const CLICK_TO_SAVE = "click-to-save"
 const CAN_ACCESS_COURSE = 1
+const PASSWORD_ACCESS_COURSE=2
+const PAGE_SIZE = 6
 
 
 /////////////////
@@ -115,6 +119,11 @@ const checkDataForAutoSaveCourse = (course, dataToUpdate) => {
         if (course.cards != undefined) {
             course.cards = dataToUpdate.cards
         }
+        if(dataToUpdate.password!=undefined){
+            course.password= dataToUpdate.password
+        }else{
+            course.password=" "
+        }
         let date = new Date()
         course.updated = date
 
@@ -135,7 +144,7 @@ const checkDataForClickSaveCourse = (course, dataToUpdate) => {
 
         course.cards = dataToUpdate.cards
 
-        course.autoSave = dataToUpdate.autoSave
+        // course.autoSave = dataToUpdate.autoSave
 
         let date = new Date()
         course.updated = date
@@ -147,13 +156,18 @@ const checkDataForClickSaveCourse = (course, dataToUpdate) => {
 }
 
 const deleteCourse = async (courseID) => {
-    let isDelete = await CourseModel.deleteOne({ _id: courseID })
-    return isDelete
+    try {
+        await CourseModel.deleteOne({ _id: courseID })
+    } catch (error) {
+        throw error
+    }
 }
 
 const checkCanAccessCourse = async (course) => {
     if (course.permissionView == CAN_ACCESS_COURSE) {
-        return true
+        return CAN_ACCESS_COURSE
+    }else if(course.permissionView==PASSWORD_ACCESS_COURSE){
+        return PASSWORD_ACCESS_COURSE
     }
     return false
 }
@@ -169,6 +183,45 @@ const setUserInfoForAllCourse = async (allCourses) => {
     }
 }
 
+const getLatestCourseByUserID = async (userID, limit) => {
+    try {
+        let latestCourses = await CourseModel.find({ owner: userID }).sort({ _id: -1 }).limit(limit)
+        return latestCourses[0] == undefined ? null : latestCourses
+    } catch (error) {
+        throw error
+    }
+}
+
+const getCoursesBySearch = async (query, page) => {
+    try {
+        page = parseInt(page)
+        let startGetElement = (page - 1) * PAGE_SIZE
+        let endGetElement = startGetElement + PAGE_SIZE
+
+        let courses = await CourseModel.find({ titleCourse: { $regex: query, $options: "i" },permissionView:1 }).skip(startGetElement).limit(PAGE_SIZE).populate("owner", "_id username imageProfile")
+        return { courses, startGetElement, endGetElement}
+    } catch (error) {
+        throw error
+    }
+}
+
+const countAllCoursesBySearch = async (query) => {
+    try {
+        return await CourseModel.countDocuments({ titleCourse: { $regex: query, $options: "i" },permissionView:1 });
+    } catch (error) {
+        throw error
+    }
+}
+
+const checkPasswordCourse=async(courseID,password)=>{
+    try {
+        return await CourseModel.findOne({_id:courseID,password:password})      
+    } catch (error) {
+        throw error
+    }
+}
+
+
 module.exports = {
     getAutoSaveCourseByUserId,
     newCourseAutoSave,
@@ -183,4 +236,8 @@ module.exports = {
     deleteCourse,
     checkCanAccessCourse,
     setUserInfoForAllCourse,
+    getLatestCourseByUserID,
+    getCoursesBySearch,
+    countAllCoursesBySearch,
+    checkPasswordCourse,
 }

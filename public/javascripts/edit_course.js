@@ -1,9 +1,11 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', function () {
     // ----------------Const----------------------------
+    const SELECT_VIEW_PASSWORD=2
     let NUM_TERM_DEFAULT = 2
     let username = getParamFromUrl(0, 1)[0]
     let courseID = getParamFromUrl(2, 3)[0]
+    let viewInputPassword=""
     //-----------------Variables------------------------
     let bodyEditCourse = document.getElementById("bodyEditCourse")
     let loader = document.getElementById("load-animation")
@@ -17,6 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnEditCourse = document.getElementsByClassName("btn-editCourse")
     var labelTitleCourse = document.getElementById("label-titleCourse")
     var createSetHeader = document.getElementById("CreateSetHeaderID")
+    var selectViewPermission = document.getElementById("selectViewPermission")
+    var bodyViewPermission = document.getElementById("modal-body__viewPermission")
+    var closePermissionModal = document.getElementById("close-permissionModal")
+    var btnSavePermission = document.getElementById("btn-SavePermission")
+
+    const selectedInputPassword = document.getElementById('selected-inputPassword');
+    if(selectedInputPassword){
+        viewInputPassword=selectedInputPassword.value
+        setEventOnInputPassword(selectedInputPassword)
+    }
     // var ONLY_ME = 0
     // var EVERYONE = 1
     var isCourseChanged = false
@@ -29,10 +41,18 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isCourseChanged) {
             let course = getContentCourse()
             if (!_.isEqual(originContentCourse, course)) {
-                autoSaveCourse(course)
-
-                isCourseChanged = false
-                originContentCourse = course
+                if(parseInt(selectViewPermission.value)==SELECT_VIEW_PASSWORD&&course.password!=""){
+                    autoSaveCourse(course)
+                    viewInputPassword=course.password
+    
+                    isCourseChanged = false
+                    originContentCourse = course
+                }else if(parseInt(selectViewPermission.value)!=SELECT_VIEW_PASSWORD){
+                    autoSaveCourse(course)
+    
+                    isCourseChanged = false
+                    originContentCourse = course
+                }
             }
         }
     })
@@ -164,6 +184,36 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.assign(urlCourse)
     }
 
+    selectViewPermission.onchange = () => {
+        let valueSelected = parseInt(document.getElementById("selectViewPermission").value)
+        if (valueSelected == SELECT_VIEW_PASSWORD) {
+            const selectPasswordWrap = document.createElement("div");
+            selectPasswordWrap.id = "selectedPassword-wrap";
+            selectPasswordWrap.className = "mt-3"
+
+            const content = `
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Nhập mật khẩu" id="selected-inputPassword" value=${viewInputPassword}>
+                </div>
+            `
+            selectPasswordWrap.innerHTML = content
+            bodyViewPermission.appendChild(selectPasswordWrap)
+
+            btnSavePermission.disabled = true
+            closePermissionModal.disabled = true
+
+            const selectedInputPassword = document.getElementById('selected-inputPassword');
+            setEventOnInputPassword(selectedInputPassword)
+        } else {
+            const selectedPasswordWrap = document.getElementById('selectedPassword-wrap');
+            if (selectedPasswordWrap) {
+                selectedPasswordWrap.remove()
+                btnSavePermission.disabled = false
+                closePermissionModal.disabled = false
+            }
+        }
+
+    }
     // -------------------------------------------------------------------------------------------------------------------------
     function getParamFromUrl(slashStart, slashEnd) {
         if (slashStart > slashEnd) return
@@ -231,6 +281,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         let selectViewPermission = parseInt(document.getElementById("selectViewPermission").value)
+        if(selectViewPermission==SELECT_VIEW_PASSWORD){
+            const selectedInputPassword = document.getElementById('selected-inputPassword');
+            course.password=selectedInputPassword.value
+        }
+
         let selectEditPermission = parseInt(document.getElementById("selectEditPermission").value)
         course.permissionView = selectViewPermission
         course.permissionEdit = selectEditPermission
@@ -449,6 +504,18 @@ document.addEventListener('DOMContentLoaded', function () {
         setEventUploadTermImg(0)
         setEventDeleteTerm(0)
         setEventDeleteImgOfTerm(0)
+    }
+
+    function setEventOnInputPassword(selectedInputPassword){
+        selectedInputPassword.oninput = () => {
+            if (selectedInputPassword.value) {
+                btnSavePermission.disabled = false
+                closePermissionModal.disabled = false
+            } else {
+                btnSavePermission.disabled = true
+                closePermissionModal.disabled = true
+            }
+        }
     }
 
     function setLoader() {

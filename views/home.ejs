@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-8 dash-series">
                       <h1 class="dash__title-series">
-                        Chuỗi 1 tuần
+                        Chuỗi Học 
                       </h1>
                       <p class="dash__remind">
                         Hãy học vào <b>tuần tới</b> để duy trì chuỗi của bạn!
@@ -45,26 +45,35 @@
                       <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">S</th>
-                            <th scope="col">M</th>
-                            <th scope="col">T</th>
-                            <th scope="col">W</th>
-                            <th scope="col">T</th>
-                            <th scope="col">F</th>
-                            <th scope="col">S</th>
+                            <th scope="col" class="th--align-center">S</th>
+                            <th scope="col" class="th--align-center">M</th>
+                            <th scope="col" class="th--align-center">T</th>
+                            <th scope="col" class="th--align-center">W</th>
+                            <th scope="col" class="th--align-center">T</th>
+                            <th scope="col" class="th--align-center">F</th>
+                            <th scope="col" class="th--align-center">S</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <th scope="row">1</th>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>7</td>
+                            <% learningChain.forEach(learningDate=>{ %>
+                              <td class="td-wrap">
+                                <div class="td-content">
+                                  <abbr title="<%= learningDate.day %> Tháng <%= learningDate.month %>, <%= learningDate.year %>">
+                                    <%= learningDate.day %>
+                                  </abbr>
+                                  <% if(learningDate.isLearning){ %>
+                                    <img
+                                      alt="Ngày học"
+                                      src="https://assets.quizlet.com/a/j/dist/app/i/achievements/streak-flame.90821ad6fa84e8e.svg"
+                                      title="Bạn đã học vào ngày này!"
+                                    />
+                                  <% } %>
+                                </div>
+                              </td>
+                            <% }) %>
                           </tr>
-                        </tbody>
+                        </tbody>                                            
                       </table>
                     </div>
                   </div>
@@ -74,151 +83,84 @@
 
             <div class="dashboard-main__recent">
               <nav aria-label="breadcrumb">
-                <ol class="breadcrumb" style="background-color: rgb(246, 247, 251);">
+                <ol class="breadcrumb mb-1" style="background-color: rgb(246, 247, 251);">
                   <li class="breadcrumb-item active" aria-current="page"><b>Gần đây</b></li>
                 </ol>
               </nav>
-
               <!-- a row -->
-              <div class="db-m__recent-row row d-flex justify-content-between">
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <div class="db-m__recent-row row d-flex justify-content-between RecentFeed-cards">
+                <% if(latestCoursesAccessed){ %>
+                  <% latestCoursesAccessed.forEach((course)=>{ %>
+                    <div class="<%= latestCoursesAccessed.length==2?"col-sm-6":"col-sm-4" %>">
+                      <div class="card setCard-content">
+                        <div class="card-body setCard">
+                          <div class="setCard-text">
+                            <a href="/<%= course.owner.username %>/courses/<%= course._id %>/flash-card">
+                              <div class="setCard-text__header">
+                                <h4 class="card-title setCard__title-course mb-2"><%= course.titleCourse %></h4>
+                                <div class="setCard__numOfTerms">
+                                  <%= course.cards.length %> <span>Thuật ngữ</span>
+                                </div>
+                              </div>
+                            </a>
+                            <div class="setCard-text__footer">
+                              <div class="setCard__userAvatar">
+                                <a href="#">
+                                  <img src="<%= course.owner.imageProfile!=" "?course.owner.imageProfile:"https://firebasestorage.googleapis.com/v0/b/image-edu-25269.appspot.com/o/files%2F84628273_176159830277856_972693363922829312_n.jpg?alt=media&token=1e381211-c8c8-49a1-a51d-1fedc82530b0" %>" alt="">
+                                </a>
+                              </div>
+                              <div class="setCard__username ">
+                                <a href=""><%= course.owner.username %></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- a row -->
-              <div class="db-m__recent-row row d-flex justify-content-between mt-2">
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
+                  <% }) %>
+                <% } %>
               </div>
             </div>
 
-            <div class="dashboard-main__recent">
+            <div class="dashboard-main__createdByMe mt-3">
               <nav aria-label="breadcrumb">
-                <ol class="breadcrumb" style="background-color: rgb(246, 247, 251);">
-                  <li class="breadcrumb-item active" aria-current="page"><b>Gần đây</b></li>
+                <ol class="breadcrumb mb-1" style="background-color: rgb(246, 247, 251);">
+                  <li class="breadcrumb-item active" aria-current="page"><b>Đã tạo</b></li>
                 </ol>
               </nav>
 
               <!-- a row -->
-              <div class="db-m__recent-row row d-flex justify-content-between">
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              <div class="db-m__created-row row d-flex justify-content-between Created-cards">
+                <% if(latestCoursesBeCreated){ %>
+                  <% latestCoursesBeCreated.forEach(course=>{ %>
+                    <div class="<%= latestCoursesBeCreated.length==2?"col-sm-6":"col-sm-4" %>">
+                      <div class="card setCard-content">
+                        <div class="card-body setCard">
+                          <div class="setCard-text">
+                            <a href="/<%= userInfor.username %>/courses/<%= course._id %>/flash-card">
+                              <div class="setCard-text__header">
+                                  <h4 class="card-title setCard__title-course mb-2"><%= course.titleCourse %></h4>
+                                  <div class="setCard__numOfTerms">
+                                    <%= course.cards.length %> <span>Thuật ngữ</span>
+                                  </div>
+                                </div>
+                            </a>
+                            <div class="setCard-text__footer">
+                              <div class="setCard__userAvatar">
+                                <a href="#">
+                                  <img src="<%= userInfor.imageProfile!=" "?userInfor.imageProfile:"https://firebasestorage.googleapis.com/v0/b/image-edu-25269.appspot.com/o/files%2F84628273_176159830277856_972693363922829312_n.jpg?alt=media&token=1e381211-c8c8-49a1-a51d-1fedc82530b0" %>" alt="">
+                                </a>
+                              </div>
+                              <div class="setCard__username ">
+                                <a href=""><%= userInfor.username %></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- a row -->
-              <div class="db-m__recent-row row d-flex justify-content-between mt-2">
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is another card with title and supporting text below. This card has some
-                        additional content to make it slightly taller overall.</p>
-                      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                  </div>
-                </div>
+                  <% }) %>
+                <% } %>
               </div>
             </div>
           </div>

@@ -1,0 +1,27 @@
+.main-search{
+    max-width: 67.5rem;
+    min-height: 32rem;
+    margin: auto auto 2.5rem;
+    padding: 0 1rem;
+    .main-search__top{
+        .top__title-topic{
+            display: flex;
+            margin-bottom: 20px;
+        }
+    }
+    
+    .main-search__middle{
+        margin-top: 15px;
+        .dashboard-main__search{
+            .breadcrumb-numOfResults{
+                padding-left: 0px !important;
+                padding-top: 0px;
+            }
+        }
+    }
+    .main-search__bottom{
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+}

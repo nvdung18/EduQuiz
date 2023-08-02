@@ -3,6 +3,8 @@ const UserServices = require("../services/user.services")
 const CourseAccessServices = require("../services/course_accessed.services")
 var createError = require('http-errors')
 const _ = require('lodash');
+const CAN_ACCESS_COURSE = 1
+const PASSWORD_ACCESS_COURSE = 2
 
 ///////////
 const BE_CREATED = "created"
@@ -43,7 +45,7 @@ const getCoursesByFilter = async (req, res, next) => {
                     allCourses = await CourseServices.setUserInfoForAllCourse(allCourses)
                 }
                 console.log(coursesAccessed[0].courses[0].owner)
-                dataFilter=coursesAccessed
+                dataFilter = coursesAccessed
             }
         } else if (typeFilter == BE_CREATED) {
             let userCourses = await UserServices.getUserCourses(userID)
@@ -69,8 +71,11 @@ const getDataCourse = async (req, res, next) => {
             username: owner.username
         }
 
+        let isYourCourse = true
+        if (req.value.isYourCourse != undefined && !req.value.isYourCourse) isYourCourse = req.value.isYourCourse
+
         if (!course) throw createError.NotFound()
-        res.render("course", { course: course, userInfo: userInfo })
+        res.render("course", { course: course, userInfo: userInfo, isYourCourse: isYourCourse })
     } catch (error) {
         next(error)
     }
@@ -179,15 +184,75 @@ const updateCourse = async (req, res, next) => {
 
 const deleteCourse = async (req, res, next) => {
     try {
+        let userID = res.get("Authorization")
         let { courseID } = req.params
-        let isDelete = CourseServices.deleteCourse(courseID)
-
-        if (!isDelete) throw createError.BadRequest()
+        await CourseServices.deleteCourse(courseID)
+        await UserServices.deleteUserCourse(courseID, userID)
         res.send("ok")
     } catch (error) {
         next(error)
     }
 }
+
+const renderPasswordPage = async (req, res, next) => {
+    try {
+        let { courseID } = req.params
+
+        let baseUrl = req.baseUrl
+        let username = (baseUrl.split("/"))[1]
+
+        let course = await CourseServices.getCourse(courseID)
+        let canAccess = await CourseServices.checkCanAccessCourse(course)
+
+        if (canAccess == CAN_ACCESS_COURSE || !canAccess) {
+            res.redirect("/" + username + "/courses/" + courseID + "/flash-card")
+        }
+        else if (canAccess == PASSWORD_ACCESS_COURSE) {
+            res.render("password_page",
+                {
+                    username: username,
+                    courseID: courseID,
+                    isPassword:true
+                })
+        }
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+const renderCourseByPassword = async (req, res, next) => {
+    try {
+        let { courseID } = req.params
+        let isPassword = req.value.isPassword
+
+        let baseUrl = req.baseUrl
+        let username = (baseUrl.split("/"))[1]
+
+        if (isPassword) {
+            let coursesAccessed=req.session.courseAccessedPassword 
+            if(coursesAccessed){
+                coursesAccessed.courses.push(courseID)
+            }else{
+                req.session.courseAccessedPassword = {
+                    courses:[courseID]
+                }
+            }
+            res.redirect(302,"/" + username + "/courses/" + courseID + "/flash-card")
+        } else {
+            res.render("password_page",
+            {
+                username: username,
+                courseID: courseID,
+                //isPassword now is false => show error message in password_page
+                isPassword: isPassword 
+            })
+        }
+    } catch (error) {
+
+    }
+}
+
 
 module.exports = {
     getALlCourses,
@@ -201,4 +266,6 @@ module.exports = {
     autoSaveCourse,
     updateCourse,
     deleteCourse,
+    renderPasswordPage,
+    renderCourseByPassword,
 }
