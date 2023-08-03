@@ -59,9 +59,16 @@ const updateAccessed = async (courseID, userID) => {
 }
 
 const getCurrentMonthAccessedCourse = async (courseID, userID) => {
+    let { month, year } = getCurrentMonthAndYear()
     let courseAccessed = await CourseAccessedModel.find({
         userID: userID,
-        courses: { $in: [courseID] }
+        courses: { $in: [courseID] },
+        $expr: {
+            $and: [
+                { $eq: [{ $month: '$accessedAt' }, month] },
+                { $eq: [{ $year: '$accessedAt' }, year] }
+            ]
+        },
     })
     return courseAccessed[0]
 }

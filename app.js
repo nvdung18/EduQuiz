@@ -17,6 +17,7 @@ var folderRouter=require("./routes/folders")
 var gradeRouter=require("./routes/grades")
 var courseRouter=require("./routes/courses")
 var searchRouter=require("./routes/search")
+var profileRouter=require("./routes/profile")
 
 //default
 var indexRouter = require("./routes/index");
@@ -56,6 +57,7 @@ app.use("/:username/folders",folderRouter)
 app.use("/:username/classes",gradeRouter)
 app.use("/:username/courses",courseRouter)
 app.use("/search",searchRouter)
+app.use("/profile/:username",profileRouter)
 
 //default
 app.use("/index", indexRouter);

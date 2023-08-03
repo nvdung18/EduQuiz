@@ -1,0 +1,225 @@
+.DashboardProfile {
+    padding: 20px 0 60px 0;
+    margin-top: 10px;
+
+    .DashboardPage {
+        .DashboardPage-header {
+            display: flex;
+
+            .db-header__image {
+                width: 6%;
+
+                img {
+                    border-radius: 50%;
+                    width: 100%;
+                }
+            }
+
+            .db-header__text {
+                margin-left: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .text-username {
+                    margin: 0;
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                }
+
+                .text-email {
+                    margin: 0;
+                    color: #939bb4;
+                    font-size: 1rem;
+                    font-weight: 550;
+                }
+            }
+        }
+
+        .DashboardPage-main {
+            margin-top: 50px;
+
+            h4 {
+                font-weight: 600;
+            }
+
+            .DashboardPage-learningChain {
+                padding: 20px;
+                margin-top: 20px;
+                background-color: white;
+                border: 1px solid white;
+                border-radius: 10px;
+                display: flex;
+                justify-content: space-around;
+                padding: 30px 0 15px 0;
+
+                .note-learningChain {
+                    padding: 25px;
+                    display: flex;
+                    flex-direction: column;
+
+                    h5 {
+                        font-size: 1rem;
+                        font-weight: 550;
+                    }
+
+                    img {
+                        width: 50%;
+                        margin: 0 auto;
+                        margin-top: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.DashboardPage-learningChain {
+    //calender
+    $color_1: #878787;
+    $color_2: #333;
+    $color_3: #aaa;
+    $color_4: #fff;
+
+    .wrapper {
+        width: 450px;
+        background: #fff;
+
+        header {
+            display: flex;
+            align-items: center;
+            padding: 25px 30px 10px;
+            justify-content: space-between;
+        }
+    }
+
+    header {
+        .icons {
+            display: flex;
+
+            span {
+                height: 38px;
+                width: 38px;
+                margin: 0 1px;
+                cursor: pointer;
+                color: $color_1;
+                text-align: center;
+                line-height: 38px;
+                font-size: 1.9rem;
+                user-select: none;
+                border-radius: 50%;
+
+                &:hover {
+                    background: #f2f2f2;
+                }
+            }
+        }
+
+        .current-date {
+            font-size: 1.45rem;
+            font-weight: 550;
+            margin: 0;
+        }
+    }
+
+    .icons {
+        span {
+            &:last-child {
+                margin-right: -10px;
+            }
+        }
+    }
+
+    .calendar {
+        padding: 20px;
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            text-align: center;
+        }
+
+        .days {
+            padding: 0;
+            margin-bottom: 20px;
+
+            li {
+                z-index: 1;
+                // cursor: pointer;
+                position: relative;
+                margin-top: 30px;
+            }
+        }
+
+        li {
+            color: $color_2;
+            width: calc(100% / 7);
+            font-size: 1.07rem;
+        }
+
+        .weeks {
+            padding: 0;
+
+            li {
+                font-weight: 500;
+                cursor: default;
+            }
+        }
+    }
+
+    .days {
+        li.inactive {
+            color: $color_3;
+        }
+
+        li.active-learned {
+
+            &::before {
+                background-size: cover;
+                background-image: url("https://assets.quizlet.com/a/j/dist/app/i/achievements/streak-flame.90821ad6fa84e8e.svg");
+                background-clip: content-box;
+            }
+        }
+
+        li.active-today {
+
+            &::after {
+                background-color: #282e3e;
+                border-radius: 50%;
+                bottom: -5px;
+                content: " ";
+                display: block;
+                height: 0.25rem;
+                left: calc(50% - 0.125rem);
+                margin: 0.25rem 0;
+                position: absolute;
+                width: 0.25rem;
+            }
+        }
+
+        li {
+            font-weight: 600;
+            &::before {
+                position: absolute;
+                content: "";
+                left: 50%;
+                top: 50%;
+                height: 40px;
+                width: 40px;
+                z-index: -1;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            // &:not(.active) {
+            //     &:hover {
+            //         &::before {
+            //             // background: #f2f2f2;
+            //         }
+            //     }
+            // }
+        }
+    }
+}

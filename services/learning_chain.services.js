@@ -139,6 +139,23 @@ const getYearMonthDayByDate = async (date) => {
     }
 }
 
+const getLearningChainOfMonth=async(userID,month,year)=>{
+    try {
+        let learningChain = await LearningChainModel.find({
+            userID: userID,
+            $expr: {
+                $and: [
+                    { $eq: [{ $month: '$month_year' }, month] },
+                    { $eq: [{ $year: '$month_year' }, year] }
+                ]
+            },
+        })
+        return learningChain[0]
+    } catch (error) {
+        throw error
+    }
+}
+
 module.exports = {
     newMonthLearningChain,
     getLatestLearningChain,
@@ -146,4 +163,5 @@ module.exports = {
     getNowDateInLearningChain,
     getWeekDays,
     getLearningChainOfWeek,
+    getLearningChainOfMonth,
 }

@@ -63,6 +63,14 @@ const deleteUserCourse = async (courseIdToRemove, userID) => {
   }
 }
 
+const getProfileByUserID = async (userID) => {
+  try {
+    return await UserModel.findById(userID).select("_id username imageProfile email")
+  } catch (error) {
+    throw error
+  }
+}
+
 
 module.exports = {
   createUser,
@@ -74,4 +82,5 @@ module.exports = {
   checkIsYourCourse,
   getUserBasicInfo,
   deleteUserCourse,
+  getProfileByUserID,
 };

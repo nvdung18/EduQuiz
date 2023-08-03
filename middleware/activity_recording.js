@@ -10,7 +10,7 @@ const recordCourseAccessed = async (req, res, next) => {
         const userID = res.get("Authorization")
 
         let accessedCurrentMonth = await CourseAccessedServices.getAccessByUserIDAndDate(userID)
-
+        
         if (accessedCurrentMonth) {
             await CourseAccessedServices.updateAccessed(courseID, userID)
         } else {

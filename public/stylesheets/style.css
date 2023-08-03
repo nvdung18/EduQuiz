@@ -1339,4 +1339,135 @@ body {
       background-color: #f8d7da;
       color: #721c24; }
 
+.DashboardProfile {
+  padding: 20px 0 60px 0;
+  margin-top: 10px; }
+  .DashboardProfile .DashboardPage .DashboardPage-header {
+    display: flex; }
+    .DashboardProfile .DashboardPage .DashboardPage-header .db-header__image {
+      width: 6%; }
+      .DashboardProfile .DashboardPage .DashboardPage-header .db-header__image img {
+        border-radius: 50%;
+        width: 100%; }
+    .DashboardProfile .DashboardPage .DashboardPage-header .db-header__text {
+      margin-left: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; }
+      .DashboardProfile .DashboardPage .DashboardPage-header .db-header__text .text-username {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600; }
+      .DashboardProfile .DashboardPage .DashboardPage-header .db-header__text .text-email {
+        margin: 0;
+        color: #939bb4;
+        font-size: 1rem;
+        font-weight: 550; }
+  .DashboardProfile .DashboardPage .DashboardPage-main {
+    margin-top: 50px; }
+    .DashboardProfile .DashboardPage .DashboardPage-main h4 {
+      font-weight: 600; }
+    .DashboardProfile .DashboardPage .DashboardPage-main .DashboardPage-learningChain {
+      padding: 20px;
+      margin-top: 20px;
+      background-color: white;
+      border: 1px solid white;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-around;
+      padding: 30px 0 15px 0; }
+      .DashboardProfile .DashboardPage .DashboardPage-main .DashboardPage-learningChain .note-learningChain {
+        padding: 25px;
+        display: flex;
+        flex-direction: column; }
+        .DashboardProfile .DashboardPage .DashboardPage-main .DashboardPage-learningChain .note-learningChain h5 {
+          font-size: 1rem;
+          font-weight: 550; }
+        .DashboardProfile .DashboardPage .DashboardPage-main .DashboardPage-learningChain .note-learningChain img {
+          width: 50%;
+          margin: 0 auto;
+          margin-top: 10px; }
+
+.DashboardPage-learningChain .wrapper {
+  width: 450px;
+  background: #fff; }
+  .DashboardPage-learningChain .wrapper header {
+    display: flex;
+    align-items: center;
+    padding: 25px 30px 10px;
+    justify-content: space-between; }
+.DashboardPage-learningChain header .icons {
+  display: flex; }
+  .DashboardPage-learningChain header .icons span {
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    color: #878787;
+    text-align: center;
+    line-height: 38px;
+    font-size: 1.9rem;
+    user-select: none;
+    border-radius: 50%; }
+    .DashboardPage-learningChain header .icons span:hover {
+      background: #f2f2f2; }
+.DashboardPage-learningChain header .current-date {
+  font-size: 1.45rem;
+  font-weight: 550;
+  margin: 0; }
+.DashboardPage-learningChain .icons span:last-child {
+  margin-right: -10px; }
+.DashboardPage-learningChain .calendar {
+  padding: 20px; }
+  .DashboardPage-learningChain .calendar ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center; }
+  .DashboardPage-learningChain .calendar .days {
+    padding: 0;
+    margin-bottom: 20px; }
+    .DashboardPage-learningChain .calendar .days li {
+      z-index: 1;
+      position: relative;
+      margin-top: 30px; }
+  .DashboardPage-learningChain .calendar li {
+    color: #333;
+    width: calc(100% / 7);
+    font-size: 1.07rem; }
+  .DashboardPage-learningChain .calendar .weeks {
+    padding: 0; }
+    .DashboardPage-learningChain .calendar .weeks li {
+      font-weight: 500;
+      cursor: default; }
+.DashboardPage-learningChain .days li.inactive {
+  color: #aaa; }
+.DashboardPage-learningChain .days li.active-learned::before {
+  background-size: cover;
+  background-image: url("https://assets.quizlet.com/a/j/dist/app/i/achievements/streak-flame.90821ad6fa84e8e.svg");
+  background-clip: content-box; }
+.DashboardPage-learningChain .days li.active-today::after {
+  background-color: #282e3e;
+  border-radius: 50%;
+  bottom: -5px;
+  content: " ";
+  display: block;
+  height: 0.25rem;
+  left: calc(50% - 0.125rem);
+  margin: 0.25rem 0;
+  position: absolute;
+  width: 0.25rem; }
+.DashboardPage-learningChain .days li {
+  font-weight: 600; }
+  .DashboardPage-learningChain .days li::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%); }
+
 /*# sourceMappingURL=style.css.map */
