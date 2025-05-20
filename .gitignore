@@ -1,4 +1,14 @@
-/node_modules/
-package-lock.json
-/.vscode/
+node_modules
+.idea
+.vscode
+.history
+docs
+*.log
+.*-audit.json
+# local env files
 .env
+.env.local
+.env.*.local
+.qodo
+
+.early.coverage
