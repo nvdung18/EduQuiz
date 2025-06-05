@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongodbUrl = `mongodb://${process.env.MONGGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}`;
+const mongodbUrl = process.env.MONGO_DB_URL;
 mongoose
     .connect(mongodbUrl, {})
     .then(() => console.log('Connected!'))
